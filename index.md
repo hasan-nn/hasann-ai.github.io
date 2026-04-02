@@ -1,8 +1,4 @@
----
-title: Hasan Nasrallah
-description: AI Engineer | Geospatial AI | Remote Sensing
-theme: minima
----
+
 
 # Hasan Nasrallah
 **AI Engineer | Geospatial AI | Remote Sensing**
