@@ -1,3 +1,9 @@
+---
+title: Hasan Nasrallah
+description: AI Engineer | Geospatial AI | Remote Sensing
+theme: minima
+---
+
 # Hasan Nasrallah
 **AI Engineer | Geospatial AI | Remote Sensing**
 
@@ -44,7 +50,7 @@ AI Engineer with 7+ years of experience building end-to-end machine learning sys
 - **Geo-AI Engine** – Modular geospatial AI platform for segmentation, detection, classification, embedding extraction, and vision-language models (e.g., SAM, DINO)  
 - **EO Data Fetcher / Satellite Image Pipeline** – Automated pipeline for fetching satellite imagery from Sentinel-1/2, Landsat, and Mapbox  
 
-### 👤 Computer Vision & Identity Verification
+### 👤 Biometrics & Security
 - **Face Detection, Tracking, Recognition, Emotion & Liveness Detection** – CNN/GAN-based models for secure facial analysis  
 - **ID & Passport OCR and Parsing** – Automated verification system for identity documents in airports and malls  
 - **Face Image Quality & Forgery Detection** – Models to assess image quality and detect forgery in IDs and passports  
@@ -52,9 +58,11 @@ AI Engineer with 7+ years of experience building end-to-end machine learning sys
 ### ⚡ Key Contributions
 - End-to-end ML pipelines: dataset creation → model training → deployment  
 - Large-scale model deployment for both geospatial and computer vision applications  
-- Integration of state-of-the-art models for segmentation, vision-language embeddings, and anomaly detection
+- Integration of state-of-the-art models for segmentation, vision-language embeddings, and anomaly detection  
+
+---
 
 ## Contact
 - **Email:** 98hasan.n@email.com  
-- **LinkedIn:** [Your LinkedIn Profile](linkedin.com/in/hasannasrallah-ai)  
-- **GitHub:** [Your GitHub Profile](link)  
+- **LinkedIn:** [LinkedIn Profile](https://linkedin.com/in/hasannasrallah-ai)  
+- **GitHub:** [GitHub Profile](https://github.com/hasan-nn)
