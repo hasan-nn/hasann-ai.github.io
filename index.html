@@ -3,158 +3,910 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hasan Nasrallah Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Hasan Nasrallah — AI Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #07060f;
+      --surface: #0e0c1a;
+      --surface2: #13102280;
+      --purple: #7c3aed;
+      --purple-light: #a855f7;
+      --purple-glow: #9333ea40;
+      --cyan: #22d3ee;
+      --cyan-dim: #22d3ee30;
+      --text: #e2e0f0;
+      --text-dim: #9490b0;
+      --border: #2a2545;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-      color: #333;
-      line-height: 1.6;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
     }
-    header {
-      background: #1e1e2f;
-      color: white;
-      padding: 2rem;
-      text-align: center;
+
+    /* ── Canvas bg ── */
+    #stars-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
     }
-    header img {
-      width: 150px;
-      height: 150px;
+
+    /* ── Noise overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    /* ── Ambient gradient orbs ── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+      animation: orb-drift 20s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 500px; height: 500px; background: #7c3aed18; top: -100px; left: -100px; animation-delay: 0s; }
+    .orb-2 { width: 400px; height: 400px; background: #22d3ee12; bottom: 20%; right: -100px; animation-delay: -7s; }
+    .orb-3 { width: 300px; height: 300px; background: #a855f710; top: 50%; left: 30%; animation-delay: -14s; }
+
+    @keyframes orb-drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(30px, 40px) scale(1.1); }
+    }
+
+    /* ── Layout wrappers ── */
+    .wrapper { position: relative; z-index: 1; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: linear-gradient(180deg, #07060fdd 0%, transparent 100%);
+      backdrop-filter: blur(6px);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      background: linear-gradient(135deg, var(--purple-light), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--purple-light); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 6rem 4rem;
+      position: relative;
+    }
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      animation: fade-up 0.8s ease both;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--cyan);
+    }
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 8vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      animation: fade-up 0.8s ease 0.15s both;
+    }
+    .hero-name .gradient-text {
+      background: linear-gradient(135deg, #fff 30%, var(--purple-light) 70%, var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--text-dim);
+      max-width: 480px;
+      animation: fade-up 0.8s ease 0.3s both;
+    }
+    .hero-sub span { color: var(--purple-light); font-weight: 500; }
+    .hero-cta {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      animation: fade-up 0.8s ease 0.45s both;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.8rem;
+      border-radius: 6px;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      color: #fff;
+      box-shadow: 0 0 30px var(--purple-glow);
+    }
+    .btn-primary:hover { box-shadow: 0 0 50px #9333ea60; transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+    }
+    .btn-ghost:hover { border-color: var(--purple-light); color: var(--purple-light); }
+
+    /* hero photo badge */
+    .hero-photo {
+      position: absolute;
+      right: 6rem;
+      top: 50%;
+      transform: translateY(-50%);
+      animation: fade-up 0.8s ease 0.5s both;
+    }
+    .hero-photo-ring {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, var(--purple), var(--cyan));
+      box-shadow: 0 0 60px var(--purple-glow), 0 0 120px #22d3ee15;
+    }
+    .hero-photo-ring img {
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 1rem;
-      border: 3px solid #fff;
+      display: block;
+      background: var(--surface);
+      /* Placeholder when no image */
     }
-    header h1 {
-      margin: 0.5rem 0;
-      font-size: 2.2rem;
+    .hero-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a1530, #0e0c1a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
     }
-    header p {
-      font-size: 1.1rem;
-      color: #ccc;
+
+    /* scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      animation: fade-up 0.8s ease 0.6s both;
     }
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(180deg, var(--purple-light), transparent);
+      animation: scroll-line 2s ease-in-out infinite;
     }
+    @keyframes scroll-line {
+      0%,100% { opacity: 1; transform: scaleY(1); }
+      50% { opacity: 0.4; transform: scaleY(0.6); }
+    }
+
+    /* ── SECTION SHARED ── */
     section {
-      padding: 2rem 1rem;
-      border-bottom: 1px solid #eee;
+      position: relative;
+      z-index: 1;
+      padding: 6rem 6rem;
     }
-    section:last-child {
-      border-bottom: none;
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
     }
-    h2 {
-      font-size: 1.8rem;
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--purple-light)30, transparent);
+      max-width: 80px;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: linear-gradient(135deg, #0a091500 0%, #0e0c1a 100%);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--text-dim);
+      font-size: 1.05rem;
       margin-bottom: 1rem;
-      color: #1e1e2f;
     }
-    h3 {
-      font-size: 1.3rem;
-      margin: 1rem 0 0.5rem;
+    .about-text p strong { color: var(--text); font-weight: 500; }
+    .stats-row {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 2rem;
     }
-    ul {
-      list-style: none;
-      padding-left: 0;
+    .stat-item { text-align: left; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--purple-light), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
     }
-    ul li {
-      margin-bottom: 0.6rem;
+    .stat-label { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.2rem; letter-spacing: 0.05em; }
+
+    .skills-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
     }
-    a {
-      color: #1e88e5;
+    .skill-tag {
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      background: var(--surface2);
+      transition: all 0.2s;
+      cursor: default;
+    }
+    .skill-tag:hover {
+      border-color: var(--purple-light);
+      color: var(--purple-light);
+      background: var(--purple-glow);
+    }
+    .skills-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--bg); }
+    .exp-timeline { position: relative; }
+    .exp-timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 8px;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, var(--purple), transparent);
+    }
+    .exp-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .exp-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--purple);
+      background: var(--bg);
+      box-shadow: 0 0 12px var(--purple-glow);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      margin-top: 4px;
+    }
+    .exp-dot::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: var(--purple-light);
+    }
+    .exp-content {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .exp-content:hover {
+      border-color: var(--purple)60;
+      box-shadow: 0 0 30px var(--purple-glow);
+    }
+    .exp-role {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+    .exp-company {
+      font-size: 0.85rem;
+      color: var(--purple-light);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── PUBLICATIONS ── */
+    #publications { background: linear-gradient(180deg, var(--bg) 0%, #0a0914 100%); }
+    .pub-grid { display: grid; gap: 1.2rem; }
+    .pub-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem 2rem;
+      background: var(--surface2);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .pub-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--purple), var(--cyan));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .pub-card:hover { border-color: var(--purple)50; box-shadow: 0 0 30px var(--purple-glow); transform: translateX(4px); }
+    .pub-card:hover::before { opacity: 1; }
+    .pub-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .pub-link {
+      flex-shrink: 0;
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      color: var(--cyan);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
       text-decoration: none;
+      transition: all 0.2s;
+      white-space: nowrap;
     }
-    a:hover {
-      text-decoration: underline;
+    .pub-link:hover { background: var(--cyan-dim); border-color: var(--cyan); }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg); }
+    .projects-cat-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 2.5rem 0 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
     }
-    .emoji {
-      margin-right: 0.3rem;
+    .projects-cat-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; }
+    .proj-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .proj-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 80% 20%, var(--purple)08, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .proj-card:hover { border-color: var(--purple)50; transform: translateY(-4px); box-shadow: 0 20px 40px #00000040, 0 0 30px var(--purple-glow); }
+    .proj-card:hover::after { opacity: 1; }
+    .proj-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    .proj-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .proj-desc {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: linear-gradient(135deg, #0a091500 0%, #0e0c1a 100%);
+      text-align: center;
+    }
+    .contact-headline {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .contact-headline .gradient-text {
+      background: linear-gradient(135deg, var(--purple-light), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .contact-sub {
+      color: var(--text-dim);
+      font-size: 1rem;
+      margin-bottom: 3rem;
+    }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 1.8rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.25s;
+    }
+    .contact-link:hover {
+      border-color: var(--purple-light);
+      color: var(--purple-light);
+      box-shadow: 0 0 20px var(--purple-glow);
+      transform: translateY(-2px);
+    }
+    .contact-link svg { flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { padding: 7rem 2rem 4rem; }
+      .hero-photo { position: static; transform: none; margin-bottom: 2rem; order: -1; }
+      #hero { flex-direction: column-reverse; align-items: flex-start; }
+      section { padding: 4rem 2rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .scroll-hint { left: 2rem; }
+      .stats-row { gap: 1.5rem; }
+      .hero-photo-ring { width: 180px; height: 180px; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <img src="HasanNPPTight.jpg" alt="Hasan Nasrallah Photo">
-  <h1>Hasan Nasrallah</h1>
-  <p>AI Engineer | Geospatial AI | Remote Sensing</p>
-</header>
+<canvas id="stars-canvas"></canvas>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
 
-<main>
+<div class="wrapper">
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">HN.ai</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-photo">
+      <div class="hero-photo-ring">
+        <div class="hero-photo-placeholder">🛰️</div>
+      </div>
+    </div>
+
+    <p class="hero-eyebrow"></p>
+    <h1 class="hero-name">
+      <span class="gradient-text">Hasan</span><br>Nasrallah
+    </h1>
+    <p class="hero-sub">
+      AI Engineer crafting <span>geospatial intelligence</span> from satellite data —
+      7+ years turning raw earth observation into real-world insight.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+        View Projects
+      </a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- ABOUT -->
   <section id="about">
-    <h2>About Me</h2>
-    <p>AI Engineer with 7+ years of experience building end-to-end machine learning systems, specializing in satellite imagery, earth observation, and geospatial AI. Experienced in dataset creation, deep learning model development, deployment, and real-world geospatial applications.</p>
+    <p class="section-label">01 — About</p>
+    <h2 class="section-title">Who I Am</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm an <strong>AI Engineer</strong> specialising in satellite imagery, earth observation, and geospatial intelligence. I build end-to-end ML systems — from raw data ingestion to large-scale model deployment.</p>
+        <p>My work spans <strong>urban analytics, precision agriculture, environmental monitoring, biometrics,</strong> and more. I thrive at the intersection of cutting-edge deep learning and real-world geospatial problems.</p>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-num">7+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">4</div>
+            <div class="stat-label">Publications</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">20+</div>
+            <div class="stat-label">Major Projects</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:0.15s">
+        <p class="skills-title">Core Skills</p>
+        <div class="skills-cloud">
+          <span class="skill-tag">Satellite Imagery</span>
+          <span class="skill-tag">Deep Learning</span>
+          <span class="skill-tag">Segmentation</span>
+          <span class="skill-tag">Object Detection</span>
+          <span class="skill-tag">SAM</span>
+          <span class="skill-tag">DINO</span>
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">Earth Observation</span>
+          <span class="skill-tag">Sentinel-1/2</span>
+          <span class="skill-tag">Landsat</span>
+          <span class="skill-tag">PEFT / LoRA</span>
+          <span class="skill-tag">Anomaly Detection</span>
+          <span class="skill-tag">GAN</span>
+          <span class="skill-tag">GDAL / GIS</span>
+          <span class="skill-tag">MLOps</span>
+          <span class="skill-tag">Computer Vision</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">VLMs</span>
+        </div>
+      </div>
+    </div>
   </section>
 
+  <!-- EXPERIENCE -->
   <section id="experience">
-    <h2>Experience</h2>
-    <ul>
-      <li><strong>Lead AI Engineer – RASID</strong></li>
-      <li><strong>AI Engineer – Orbis Holding</strong></li>
-      <li><strong>Research Assistant – CNRS</strong></li>
-    </ul>
+    <p class="section-label">02 — Experience</p>
+    <h2 class="section-title">Where I've Worked</h2>
+    <div class="exp-timeline">
+      <div class="exp-item reveal">
+        <div class="exp-dot"></div>
+        <div class="exp-content">
+          <div class="exp-role">Lead AI Engineer</div>
+          <div class="exp-company">RASID</div>
+        </div>
+      </div>
+      <div class="exp-item reveal" style="transition-delay:0.1s">
+        <div class="exp-dot"></div>
+        <div class="exp-content">
+          <div class="exp-role">AI Engineer</div>
+          <div class="exp-company">Orbis Holding</div>
+        </div>
+      </div>
+      <div class="exp-item reveal" style="transition-delay:0.2s">
+        <div class="exp-dot"></div>
+        <div class="exp-content">
+          <div class="exp-role">Research Assistant</div>
+          <div class="exp-company">CNRS Lebanon</div>
+        </div>
+      </div>
+    </div>
   </section>
 
+  <!-- PUBLICATIONS -->
   <section id="publications">
-    <h2>Publications</h2>
-    <ul>
-      <li><strong>Zero-Shot Refinement of Buildings’ Segmentation Models using SAM</strong> - <a href="https://arxiv.org/pdf/2310.01845.pdf" target="_blank">PDF</a></li>
-      <li><strong>Empirical Study of PEFT Techniques for Winter Wheat Segmentation</strong> - <a href="https://arxiv.org/pdf/2310.01825v1.pdf" target="_blank">PDF</a></li>
-      <li><strong>Scale Invariant Model for Building Detection from Aerial Images</strong> - <a href="https://link.springer.com/article/10.1007/s11760-023-02520-3" target="_blank">Springer Link</a></li>
-      <li><strong>Lebanon Solar Rooftop Potential Assessment using Buildings Segmentation from Aerial Images</strong> - <a href="https://ieeexplore.ieee.org/document/9793655" target="_blank">IEEE Link</a></li>
-    </ul>
+    <p class="section-label">03 — Research</p>
+    <h2 class="section-title">Publications</h2>
+    <div class="pub-grid">
+      <div class="pub-card reveal">
+        <div class="pub-title">Zero-Shot Refinement of Buildings' Segmentation Models using SAM</div>
+        <a class="pub-link" href="https://arxiv.org/pdf/2310.01845.pdf" target="_blank">↗ arXiv</a>
+      </div>
+      <div class="pub-card reveal" style="transition-delay:0.1s">
+        <div class="pub-title">Empirical Study of PEFT Techniques for Winter Wheat Segmentation</div>
+        <a class="pub-link" href="https://arxiv.org/pdf/2310.01825v1.pdf" target="_blank">↗ arXiv</a>
+      </div>
+      <div class="pub-card reveal" style="transition-delay:0.2s">
+        <div class="pub-title">Scale Invariant Model for Building Detection from Aerial Images</div>
+        <a class="pub-link" href="https://link.springer.com/article/10.1007/s11760-023-02520-3" target="_blank">↗ Springer</a>
+      </div>
+      <div class="pub-card reveal" style="transition-delay:0.3s">
+        <div class="pub-title">Lebanon Solar Rooftop Potential Assessment using Buildings Segmentation from Aerial Images</div>
+        <a class="pub-link" href="https://ieeexplore.ieee.org/document/9793655" target="_blank">↗ IEEE</a>
+      </div>
+    </div>
   </section>
 
+  <!-- PROJECTS -->
   <section id="projects">
-    <h2>Projects</h2>
+    <p class="section-label">04 — Work</p>
+    <h2 class="section-title">Selected Projects</h2>
 
-    <h3>🌍 Geospatial & Earth Observation</h3>
-    <ul>
-      <li><strong>Urban Building Detection</strong> – Deep learning models for large-scale urban building extraction from satellite imagery</li>
-      <li><strong>Urban Change & General Change Detection</strong> – Models to detect urban expansion and other changes over time</li>
-      <li><strong>Crop Field Delineation & Wheat Monitoring</strong> – Models to map agricultural fields and monitor crop health using satellite imagery</li>
-      <li><strong>Banana Crop Stress Detection</strong> – Anomaly detection models for field stress and health monitoring</li>
-      <li><strong>Methane Emission Monitoring</strong> – Large-scale model trained on real and synthetic satellite data for global methane detection and alerting</li>
-      <li><strong>Lebanon Solar Rooftop Potential</strong> – Algorithm to estimate solar energy potential using building segmentation from aerial images</li>
-    </ul>
+    <p class="projects-cat-title">🌍 Geospatial & Earth Observation</p>
+    <div class="projects-grid">
+      <div class="proj-card reveal">
+        <span class="proj-icon">🏙️</span>
+        <div class="proj-name">Urban Building Detection</div>
+        <div class="proj-desc">Deep learning models for large-scale urban building extraction from satellite imagery.</div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:0.05s">
+        <span class="proj-icon">🔄</span>
+        <div class="proj-name">Urban & General Change Detection</div>
+        <div class="proj-desc">Temporal models detecting urban expansion and land-use changes over time.</div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:0.1s">
+        <span class="proj-icon">🌾</span>
+        <div class="proj-name">Crop Field Delineation & Wheat Monitoring</div>
+        <div class="proj-desc">Mapping agricultural fields and monitoring crop health via satellite multispectral imagery.</div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:0.15s">
+        <span class="proj-icon">🍌</span>
+        <div class="proj-name">Banana Crop Stress Detection</div>
+        <div class="proj-desc">Anomaly detection models for early field stress identification and health monitoring.</div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:0.2s">
+        <span class="proj-icon">💨</span>
+        <div class="proj-name">Methane Emission Monitoring</div>
+        <div class="proj-desc">Large-scale model trained on real + synthetic satellite data for global methane detection.</div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:0.25s">
+        <span class="proj-icon">☀️</span>
+        <div class="proj-name">Lebanon Solar Rooftop Potential</div>
+        <div class="proj-desc">Algorithm estimating solar energy capacity using building segmentation from aerial images.</div>
+      </div>
+    </div>
 
-    <h3>🛠 AI Platforms & Pipelines</h3>
-    <ul>
-      <li><strong>Geo-AI Engine</strong> – Modular geospatial AI platform for segmentation, detection, classification, embedding extraction, and vision-language models (e.g., SAM, DINO)</li>
-      <li><strong>EO Data Fetcher / Satellite Image Pipeline</strong> – Automated pipeline for fetching satellite imagery from Sentinel-1/2, Landsat, and Mapbox</li>
-    </ul>
+    <p class="projects-cat-title">🛠 AI Platforms & Pipelines</p>
+    <div class="projects-grid">
+      <div class="proj-card reveal">
+        <span class="proj-icon">⚙️</span>
+        <div class="proj-name">Geo-AI Engine</div>
+        <div class="proj-desc">Modular geospatial AI platform for segmentation, detection, classification, embedding extraction, and VLMs (SAM, DINO).</div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:0.05s">
+        <span class="proj-icon">🛰️</span>
+        <div class="proj-name">EO Data Fetcher / Satellite Image Pipeline</div>
+        <div class="proj-desc">Automated pipeline fetching imagery from Sentinel-1/2, Landsat, and Mapbox at scale.</div>
+      </div>
+    </div>
 
-    <h3>👤 Biometrics & Security</h3>
-    <ul>
-      <li><strong>Face Detection, Tracking, Recognition, Emotion & Liveness Detection</strong> – CNN/GAN-based models for secure facial analysis</li>
-      <li><strong>ID & Passport OCR and Parsing</strong> – Automated verification system for identity documents in airports and malls</li>
-      <li><strong>Face Image Quality & Forgery Detection</strong> – Models to assess image quality and detect forgery in IDs and passports</li>
-    </ul>
-
-    <h3>⚡ Key Contributions</h3>
-    <ul>
-      <li>End-to-end ML pipelines: dataset creation → model training → deployment</li>
-      <li>Large-scale model deployment for both geospatial and computer vision applications</li>
-      <li>Integration of state-of-the-art models for segmentation, vision-language embeddings, and anomaly detection</li>
-    </ul>
+    <p class="projects-cat-title">👤 Biometrics & Security</p>
+    <div class="projects-grid">
+      <div class="proj-card reveal">
+        <span class="proj-icon">🧠</span>
+        <div class="proj-name">Face Analysis Suite</div>
+        <div class="proj-desc">CNN/GAN models for face detection, tracking, recognition, emotion analysis, and liveness detection.</div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:0.05s">
+        <span class="proj-icon">🪪</span>
+        <div class="proj-name">ID & Passport OCR</div>
+        <div class="proj-desc">Automated verification system for identity documents deployed in airports and retail environments.</div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:0.1s">
+        <span class="proj-icon">🔍</span>
+        <div class="proj-name">Face Quality & Forgery Detection</div>
+        <div class="proj-desc">Models assessing image quality and detecting document forgery in IDs and passports.</div>
+      </div>
+    </div>
   </section>
 
+  <!-- CONTACT -->
   <section id="contact">
-    <h2>Contact</h2>
-    <ul>
-      <li><strong>Email:</strong> 98hasan.n@email.com</li>
-      <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/hasannasrallah-ai" target="_blank">linkedin.com/in/hasannasrallah-ai</a></li>
-      <li><strong>GitHub:</strong> <a href="https://github.com/hasan-nn" target="_blank">github.com/hasan-nn</a></li>
-    </ul>
+    <p class="section-label" style="justify-content:center">05 — Contact</p>
+    <h2 class="contact-headline reveal">Let's build something<br><span class="gradient-text">extraordinary.</span></h2>
+    <p class="contact-sub reveal" style="transition-delay:0.1s">Open to collaborations, research, and new opportunities.</p>
+    <div class="contact-links reveal" style="transition-delay:0.2s">
+      <a class="contact-link" href="mailto:98hasan.n@email.com">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+        98hasan.n@email.com
+      </a>
+      <a class="contact-link" href="https://linkedin.com/in/hasannasrallah-ai" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a class="contact-link" href="https://github.com/hasan-nn" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+    </div>
   </section>
-</main>
+
+  <footer>
+    <p>Crafted with precision · Hasan Nasrallah © 2025</p>
+  </footer>
+
+</div>
+
+<script>
+  // ── Starfield ──
+  const canvas = document.getElementById('stars-canvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function initStars(n = 160) {
+    stars = Array.from({ length: n }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.2 + 0.2,
+      alpha: Math.random() * 0.6 + 0.1,
+      speed: Math.random() * 0.15 + 0.03,
+      twinkle: Math.random() * Math.PI * 2
+    }));
+  }
+
+  function drawStars(t) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      s.twinkle += 0.012;
+      const a = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(200,190,255,${a})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(drawStars);
+  }
+
+  resize();
+  initStars();
+  window.addEventListener('resize', () => { resize(); initStars(); });
+  drawStars();
+
+  // ── Scroll reveal ──
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
+</script>
 
 </body>
 </html>
