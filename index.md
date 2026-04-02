@@ -1,10 +1,3 @@
-
-
-# Hasan Nasrallah
-**AI Engineer | Geospatial AI | Remote Sensing**
-
----
-
 ## About Me
 AI Engineer with 7+ years of experience building end-to-end machine learning systems, specializing in satellite imagery, earth observation, and geospatial AI. Experienced in dataset creation, deep learning model development, deployment, and real-world geospatial applications.
 
