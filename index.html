@@ -255,7 +255,7 @@
     @keyframes gp-scan { 0% { transform: translateY(-60%); } 50% { transform: translateY(60%); } 100% { transform: translateY(-60%); } }
 
     .gp-terminal {
-      position: relative; margin-top: 2.6rem; border: 1px solid var(--border); border-radius: 12px;
+      position: relative; margin: 2.6rem auto 0; max-width: 640px; border: 1px solid var(--border); border-radius: 12px;
       background: #0806128f; font-family: 'SFMono-Regular', 'Consolas', monospace;
       font-size: 0.82rem; overflow: hidden;
     }
@@ -317,6 +317,7 @@
       .gp-orbit-2 { width: 240px; height: 240px; }
       .gp-orbit-1 { width: 170px; height: 170px; }
       .gp-stats { gap: 1.4rem; }
+      .gp-terminal { max-width: 100%; }
     }
   </style>
 </head>
@@ -516,7 +517,7 @@
             <span class="gp-term-live"><span class="gp-pulse"></span> REC</span>
           </div>
           <div class="gp-term-body gp-term-cmd">
-            <span class="p">user@rasid:~$</span> analyze --layers ndvi,landcover,change --render<span class="gp-cursor"></span>
+            <span class="p">user ▸</span> for this AoI I want — <span class="c">Sentinel-2 RGB uint8 TIFF</span> · <span class="c">Microsoft Buildings</span> · <span class="c">Alpha Earth 3 random band-embeddings</span> · <span class="c">high-res Mapbox image</span><span class="gp-cursor"></span>
           </div>
           <video class="gp-video" muted loop playsinline preload="metadata" poster="gopilot-poster.jpg" aria-label="GoPilot analysis layers rendered over satellite imagery">
             <source src="gopilot-demo.mp4" type="video/mp4">
