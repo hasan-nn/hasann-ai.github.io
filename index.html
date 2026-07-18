@@ -188,7 +188,7 @@
       mask-image: radial-gradient(ellipse at 70% 30%, #000 0%, transparent 70%);
       -webkit-mask-image: radial-gradient(ellipse at 70% 30%, #000 0%, transparent 70%);
     }
-    .gp-layout { position: relative; display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 3rem; align-items: center; }
+    .gp-layout { position: relative; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 3rem; align-items: center; }
 
     .gp-badge {
       display: inline-flex; align-items: center; gap: 0.5rem;
@@ -225,39 +225,11 @@
     .btn-gopilot:hover { box-shadow: 0 0 55px #22d3ee55; transform: translateY(-2px); }
     .gp-made-in { font-size: 0.78rem; color: var(--text-dim); letter-spacing: 0.04em; }
 
-    /* orbit visual */
-    .gp-visual { position: relative; display: flex; align-items: center; justify-content: center; min-height: 320px; }
-    .gp-orbit { position: absolute; border: 1px dashed #22d3ee2a; border-radius: 50%; }
-    .gp-orbit-1 { width: 200px; height: 200px; animation: gp-rotate 14s linear infinite; }
-    .gp-orbit-2 { width: 300px; height: 300px; animation: gp-rotate 26s linear infinite reverse; }
-    .gp-orbit-3 { width: 380px; height: 380px; border-color: #7c3aed22; animation: gp-rotate 40s linear infinite; }
-    @keyframes gp-rotate { to { transform: rotate(360deg); } }
-    .gp-sat { position: absolute; top: -6px; left: 50%; width: 11px; height: 11px; margin-left: -5.5px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan), 0 0 30px #22d3ee60; }
-    .gp-sat-p { background: var(--purple-light); box-shadow: 0 0 12px var(--purple-light), 0 0 30px var(--purple-glow); }
-    .gp-earth {
-      position: relative; width: 130px; height: 130px; border-radius: 50%;
-      background: radial-gradient(circle at 32% 30%, #164e63, #0c2f4a 45%, #07182b 75%);
-      box-shadow: inset -14px -10px 30px #00000090, 0 0 50px #22d3ee25, 0 0 100px #7c3aed20;
-      overflow: hidden;
-    }
-    .gp-earth::before {
-      content: ''; position: absolute; inset: 0; border-radius: 50%;
-      background:
-        radial-gradient(ellipse 34px 20px at 30% 38%, #22d3ee50, transparent 70%),
-        radial-gradient(ellipse 26px 30px at 62% 62%, #4ade8035, transparent 70%),
-        radial-gradient(ellipse 40px 14px at 68% 28%, #22d3ee35, transparent 70%);
-    }
-    .gp-scan {
-      position: absolute; inset: 0; border-radius: 50%;
-      background: linear-gradient(180deg, transparent 46%, #22d3ee55 50%, transparent 54%);
-      animation: gp-scan 3.5s ease-in-out infinite;
-    }
-    @keyframes gp-scan { 0% { transform: translateY(-60%); } 50% { transform: translateY(60%); } 100% { transform: translateY(-60%); } }
-
     .gp-terminal {
-      position: relative; margin: 2.6rem auto 0; max-width: 640px; border: 1px solid var(--border); border-radius: 12px;
+      position: relative; margin: 0; width: 100%; border: 1px solid var(--border); border-radius: 12px;
       background: #0806128f; font-family: 'SFMono-Regular', 'Consolas', monospace;
       font-size: 0.82rem; overflow: hidden;
+      box-shadow: 0 20px 50px #00000060, 0 0 40px #22d3ee12;
     }
     .gp-term-bar { display: flex; align-items: center; gap: 0.45rem; padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); }
     .gp-term-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border); }
@@ -312,12 +284,7 @@
       .stats-row { gap: 1.5rem; }
       .gp-inner { padding: 2rem 1.5rem; }
       .gp-layout { grid-template-columns: 1fr; gap: 2rem; }
-      .gp-visual { min-height: 260px; order: -1; }
-      .gp-orbit-3 { width: 300px; height: 300px; }
-      .gp-orbit-2 { width: 240px; height: 240px; }
-      .gp-orbit-1 { width: 170px; height: 170px; }
       .gp-stats { gap: 1.4rem; }
-      .gp-terminal { max-width: 100%; }
     }
   </style>
 </head>
@@ -501,29 +468,21 @@
             </div>
           </div>
 
-          <div class="gp-visual" aria-hidden="true">
-            <div class="gp-orbit gp-orbit-1"><span class="gp-sat"></span></div>
-            <div class="gp-orbit gp-orbit-2"><span class="gp-sat gp-sat-p"></span></div>
-            <div class="gp-orbit gp-orbit-3"><span class="gp-sat"></span></div>
-            <div class="gp-earth"><div class="gp-scan"></div></div>
+          <div class="gp-terminal reveal" style="transition-delay:0.15s">
+            <div class="gp-term-bar">
+              <span class="gp-term-dot"></span><span class="gp-term-dot"></span><span class="gp-term-dot"></span>
+              <span class="gp-term-title">gopilot — live layer analysis</span>
+              <span class="gp-term-live"><span class="gp-pulse"></span> REC</span>
+            </div>
+            <div class="gp-term-body gp-term-cmd">
+              <span class="p">user ▸</span> for this AoI I want — <span class="c">Sentinel-2 RGB uint8 TIFF</span> · <span class="c">Microsoft Buildings</span> · <span class="c">Alpha Earth 3 random band-embeddings</span> · <span class="c">high-res Mapbox image</span><span class="gp-cursor"></span>
+            </div>
+            <video class="gp-video" muted loop playsinline preload="metadata" poster="gopilot-poster.jpg" aria-label="GoPilot analysis layers rendered over satellite imagery">
+              <source src="gopilot-demo.mp4" type="video/mp4">
+            </video>
           </div>
 
         </div>
-
-        <div class="gp-terminal reveal" style="transition-delay:0.15s">
-          <div class="gp-term-bar">
-            <span class="gp-term-dot"></span><span class="gp-term-dot"></span><span class="gp-term-dot"></span>
-            <span class="gp-term-title">gopilot — live layer analysis</span>
-            <span class="gp-term-live"><span class="gp-pulse"></span> REC</span>
-          </div>
-          <div class="gp-term-body gp-term-cmd">
-            <span class="p">user ▸</span> for this AoI I want — <span class="c">Sentinel-2 RGB uint8 TIFF</span> · <span class="c">Microsoft Buildings</span> · <span class="c">Alpha Earth 3 random band-embeddings</span> · <span class="c">high-res Mapbox image</span><span class="gp-cursor"></span>
-          </div>
-          <video class="gp-video" muted loop playsinline preload="metadata" poster="gopilot-poster.jpg" aria-label="GoPilot analysis layers rendered over satellite imagery">
-            <source src="gopilot-demo.mp4" type="video/mp4">
-          </video>
-        </div>
-
       </div>
     </div>
   </section>
