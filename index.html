@@ -160,6 +160,118 @@
     .pub-link { flex-shrink: 0; padding: 0.5rem 1.2rem; border-radius: 6px; border: 1px solid var(--border); color: var(--cyan); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
     .pub-link:hover { background: var(--cyan-dim); border-color: var(--cyan); }
 
+    /* GOPILOT — FLAGSHIP */
+    #gopilot { background: radial-gradient(ellipse at 50% 0%, #0d1b2a55 0%, var(--bg) 60%); overflow: hidden; }
+    .gp-shell {
+      position: relative; border-radius: 20px; padding: 2px;
+      background: conic-gradient(from var(--gp-angle, 0deg), var(--purple), var(--cyan), #0ea5e9, var(--purple-light), var(--purple));
+      animation: gp-spin 8s linear infinite;
+    }
+    @property --gp-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+    @keyframes gp-spin { to { --gp-angle: 360deg; } }
+    @supports not (background: conic-gradient(from var(--gp-angle), red, blue)) {
+      .gp-shell { background: linear-gradient(135deg, var(--purple), var(--cyan)); animation: none; }
+    }
+    .gp-inner {
+      position: relative; border-radius: 18px; background: #0a0917f2;
+      padding: 3.5rem 3.5rem 3rem; overflow: hidden;
+    }
+    .gp-inner::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 85% 15%, #22d3ee0e, transparent 45%), radial-gradient(circle at 10% 90%, #7c3aed12, transparent 50%);
+      pointer-events: none;
+    }
+    .gp-grid-lines {
+      position: absolute; inset: 0; opacity: 0.35; pointer-events: none;
+      background-image: linear-gradient(#22d3ee08 1px, transparent 1px), linear-gradient(90deg, #22d3ee08 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(ellipse at 70% 30%, #000 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at 70% 30%, #000 0%, transparent 70%);
+    }
+    .gp-layout { position: relative; display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 3rem; align-items: center; }
+
+    .gp-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 0.9rem; border-radius: 999px;
+      border: 1px solid #22d3ee40; background: #22d3ee0d;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 1.4rem;
+    }
+    .gp-badge .gp-pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 0 #22d3ee80; animation: gp-pulse 2s ease-out infinite; }
+    @keyframes gp-pulse { 70% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+
+    .gp-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 4.5vw, 3.2rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 0.6rem; }
+    .gp-title .gradient-text { background: linear-gradient(135deg, var(--cyan) 10%, var(--purple-light) 60%, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .gp-tagline { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600; color: var(--cyan); letter-spacing: 0.06em; margin-bottom: 1.2rem; }
+    .gp-desc { color: var(--text-dim); font-size: 1rem; max-width: 560px; margin-bottom: 1.8rem; }
+    .gp-desc strong { color: var(--text); font-weight: 500; }
+
+    .gp-chips { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-bottom: 2rem; max-width: 620px; }
+    .gp-chip {
+      padding: 0.35rem 0.85rem; border-radius: 999px; font-size: 0.76rem;
+      border: 1px solid var(--border); color: var(--text-dim); background: #13102260; transition: all 0.2s; cursor: default;
+    }
+    .gp-chip:hover { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
+
+    .gp-stats { display: flex; gap: 2.2rem; flex-wrap: wrap; margin-bottom: 2.2rem; }
+    .gp-stat-num { font-family: 'Syne', sans-serif; font-size: 1.7rem; font-weight: 800; background: linear-gradient(135deg, var(--cyan), var(--purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; }
+    .gp-stat-label { font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.06em; margin-top: 0.25rem; }
+
+    .gp-cta-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+    .btn-gopilot {
+      background: linear-gradient(135deg, #0891b2, var(--cyan)); color: #041018;
+      box-shadow: 0 0 30px #22d3ee35; font-weight: 700;
+    }
+    .btn-gopilot:hover { box-shadow: 0 0 55px #22d3ee55; transform: translateY(-2px); }
+    .gp-made-in { font-size: 0.78rem; color: var(--text-dim); letter-spacing: 0.04em; }
+
+    /* orbit visual */
+    .gp-visual { position: relative; display: flex; align-items: center; justify-content: center; min-height: 320px; }
+    .gp-orbit { position: absolute; border: 1px dashed #22d3ee2a; border-radius: 50%; }
+    .gp-orbit-1 { width: 200px; height: 200px; animation: gp-rotate 14s linear infinite; }
+    .gp-orbit-2 { width: 300px; height: 300px; animation: gp-rotate 26s linear infinite reverse; }
+    .gp-orbit-3 { width: 380px; height: 380px; border-color: #7c3aed22; animation: gp-rotate 40s linear infinite; }
+    @keyframes gp-rotate { to { transform: rotate(360deg); } }
+    .gp-sat { position: absolute; top: -6px; left: 50%; width: 11px; height: 11px; margin-left: -5.5px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan), 0 0 30px #22d3ee60; }
+    .gp-sat-p { background: var(--purple-light); box-shadow: 0 0 12px var(--purple-light), 0 0 30px var(--purple-glow); }
+    .gp-earth {
+      position: relative; width: 130px; height: 130px; border-radius: 50%;
+      background: radial-gradient(circle at 32% 30%, #164e63, #0c2f4a 45%, #07182b 75%);
+      box-shadow: inset -14px -10px 30px #00000090, 0 0 50px #22d3ee25, 0 0 100px #7c3aed20;
+      overflow: hidden;
+    }
+    .gp-earth::before {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      background:
+        radial-gradient(ellipse 34px 20px at 30% 38%, #22d3ee50, transparent 70%),
+        radial-gradient(ellipse 26px 30px at 62% 62%, #4ade8035, transparent 70%),
+        radial-gradient(ellipse 40px 14px at 68% 28%, #22d3ee35, transparent 70%);
+    }
+    .gp-scan {
+      position: absolute; inset: 0; border-radius: 50%;
+      background: linear-gradient(180deg, transparent 46%, #22d3ee55 50%, transparent 54%);
+      animation: gp-scan 3.5s ease-in-out infinite;
+    }
+    @keyframes gp-scan { 0% { transform: translateY(-60%); } 50% { transform: translateY(60%); } 100% { transform: translateY(-60%); } }
+
+    .gp-terminal {
+      position: relative; margin-top: 2.6rem; border: 1px solid var(--border); border-radius: 12px;
+      background: #0806128f; font-family: 'SFMono-Regular', 'Consolas', monospace;
+      font-size: 0.82rem; overflow: hidden;
+    }
+    .gp-term-bar { display: flex; align-items: center; gap: 0.45rem; padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); }
+    .gp-term-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border); }
+    .gp-term-dot:nth-child(1) { background: #f8717150; } .gp-term-dot:nth-child(2) { background: #fbbf2450; } .gp-term-dot:nth-child(3) { background: #34d39950; }
+    .gp-term-title { margin-left: 0.5rem; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.08em; }
+    .gp-term-body { padding: 1.1rem 1.3rem; color: var(--text-dim); line-height: 1.9; }
+    .gp-term-cmd { padding: 0.8rem 1.3rem; border-bottom: 1px solid var(--border); }
+    .gp-term-live { margin-left: auto; display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.65rem; letter-spacing: 0.15em; color: var(--cyan); }
+    .gp-video { display: block; width: 100%; height: auto; background: #050410; }
+    .gp-term-body .p { color: var(--cyan); }
+    .gp-term-body .c { color: var(--purple-light); }
+    .gp-cursor { display: inline-block; width: 8px; height: 15px; background: var(--cyan); vertical-align: middle; animation: gp-blink 1s step-end infinite; margin-left: 2px; }
+    @keyframes gp-blink { 50% { opacity: 0; } }
+
     /* PROJECTS */
     #projects { background: var(--bg); }
     .projects-cat-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; margin: 2.5rem 0 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
@@ -198,6 +310,13 @@
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       .scroll-hint { left: 2rem; }
       .stats-row { gap: 1.5rem; }
+      .gp-inner { padding: 2rem 1.5rem; }
+      .gp-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .gp-visual { min-height: 260px; order: -1; }
+      .gp-orbit-3 { width: 300px; height: 300px; }
+      .gp-orbit-2 { width: 240px; height: 240px; }
+      .gp-orbit-1 { width: 170px; height: 170px; }
+      .gp-stats { gap: 1.4rem; }
     }
   </style>
 </head>
@@ -215,6 +334,7 @@
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
+      <li><a href="#gopilot" style="color:var(--cyan)">GoPilot</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -328,9 +448,88 @@
     </div>
   </section>
 
+  <!-- GOPILOT — FLAGSHIP -->
+  <section id="gopilot">
+    <p class="section-label">03 — Flagship</p>
+    <h2 class="section-title">Rasid <span style="background:linear-gradient(135deg,var(--cyan),var(--purple-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">GoPilot</span></h2>
+
+    <div class="gp-shell reveal">
+      <div class="gp-inner">
+        <div class="gp-grid-lines"></div>
+        <div class="gp-layout">
+
+          <div>
+            <span class="gp-badge"><span class="gp-pulse"></span> Live · app.rasid.ai</span>
+            <h3 class="gp-title"><span class="gradient-text">Seeing Earth,<br>Smarter.</span></h3>
+            <p class="gp-tagline">🛰️ Geospatial Observation Pilot</p>
+            <p class="gp-desc">
+              An expert <strong>AI co-pilot for satellite imagery analysis</strong>, Earth observation, and geospatial
+              intelligence — built at RASID. It doesn't just chat: it runs <strong>end-to-end workflows</strong> on real
+              satellite data. Give it a location, a time range, and an objective — it handles scene selection,
+              analysis, and file delivery.
+            </p>
+
+            <div class="gp-stats">
+              <div><div class="gp-stat-num">6</div><div class="gp-stat-label">Satellite Sources</div></div>
+              <div><div class="gp-stat-num">17+</div><div class="gp-stat-label">Spectral Indices</div></div>
+              <div><div class="gp-stat-num">7</div><div class="gp-stat-label">GPU AI Models</div></div>
+              <div><div class="gp-stat-num">40+</div><div class="gp-stat-label">Years of Archive</div></div>
+            </div>
+
+            <div class="gp-chips">
+              <span class="gp-chip">Sentinel-2</span>
+              <span class="gp-chip">Landsat 4–9</span>
+              <span class="gp-chip">Sub-meter Mapbox</span>
+              <span class="gp-chip">Alpha Earth Embeddings</span>
+              <span class="gp-chip">NDVI · NDWI · NBR</span>
+              <span class="gp-chip">Change Detection</span>
+              <span class="gp-chip">Methane Plume Detection</span>
+              <span class="gp-chip">Field Delineation</span>
+              <span class="gp-chip">Tree Crown Detection</span>
+              <span class="gp-chip">Phenology Analysis</span>
+              <span class="gp-chip">Land Cover</span>
+              <span class="gp-chip">World Monitor Intel</span>
+            </div>
+
+            <div class="gp-cta-row">
+              <a class="btn btn-gopilot" href="https://app.rasid.ai/try-gopilot" target="_blank" rel="noopener">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+                Try GoPilot
+              </a>
+              <span class="gp-made-in">Developed by Rasid.ai · Made in Lebanon 🇱🇧</span>
+            </div>
+          </div>
+
+          <div class="gp-visual" aria-hidden="true">
+            <div class="gp-orbit gp-orbit-1"><span class="gp-sat"></span></div>
+            <div class="gp-orbit gp-orbit-2"><span class="gp-sat gp-sat-p"></span></div>
+            <div class="gp-orbit gp-orbit-3"><span class="gp-sat"></span></div>
+            <div class="gp-earth"><div class="gp-scan"></div></div>
+          </div>
+
+        </div>
+
+        <div class="gp-terminal reveal" style="transition-delay:0.15s">
+          <div class="gp-term-bar">
+            <span class="gp-term-dot"></span><span class="gp-term-dot"></span><span class="gp-term-dot"></span>
+            <span class="gp-term-title">gopilot — live layer analysis</span>
+            <span class="gp-term-live"><span class="gp-pulse"></span> REC</span>
+          </div>
+          <div class="gp-term-body gp-term-cmd">
+            <span class="p">user@rasid:~$</span> analyze --layers ndvi,landcover,change --render<span class="gp-cursor"></span>
+          </div>
+          <video class="gp-video" muted loop playsinline preload="metadata" poster="gopilot-poster.jpg" aria-label="GoPilot analysis layers rendered over satellite imagery">
+            <source src="gopilot-demo.mp4" type="video/mp4">
+          </video>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- PUBLICATIONS -->
   <section id="publications">
-    <p class="section-label">03 — Research</p>
+    <p class="section-label">04 — Research</p>
     <h2 class="section-title">Publications</h2>
     <div class="pub-grid">
       <div class="pub-card reveal">
@@ -354,7 +553,7 @@
 
   <!-- PROJECTS -->
   <section id="projects">
-    <p class="section-label">04 — Work</p>
+    <p class="section-label">05 — Work</p>
     <h2 class="section-title">Selected Projects</h2>
 
     <p class="projects-cat-title">🌍 Geospatial & Earth Observation</p>
@@ -447,7 +646,7 @@
 
   <!-- CONTACT -->
   <section id="contact">
-    <p class="section-label" style="justify-content:center">05 — Contact</p>
+    <p class="section-label" style="justify-content:center">06 — Contact</p>
     <h2 class="contact-headline reveal">Let's build something<br><span class="gradient-text">extraordinary.</span></h2>
     <p class="contact-sub reveal" style="transition-delay:0.1s">Open to collaborations, research, and new opportunities.</p>
     <div class="contact-links reveal" style="transition-delay:0.2s">
@@ -519,6 +718,18 @@
     });
   }, { threshold: 0.1 });
   reveals.forEach(el => io.observe(el));
+
+  // GoPilot demo video: play only while visible
+  const gpVideo = document.querySelector('.gp-video');
+  if (gpVideo) {
+    const vio = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { gpVideo.play().catch(() => {}); }
+        else { gpVideo.pause(); }
+      });
+    }, { threshold: 0.25 });
+    vio.observe(gpVideo);
+  }
 </script>
 
 </body>
