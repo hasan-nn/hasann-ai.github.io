@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="theme-color" content="#fdfcff">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hasan Nasrallah — AI Engineer</title>
+  <meta name="description" content="Hasan Nasrallah, Lead AI Engineer building agentic AI for satellite imagery and geospatial intelligence. Creator of Rasid GoPilot.">
+  <title>Hasan Nasrallah | AI Engineer</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -16,6 +17,7 @@
       --purple-glow: #7c3aed26;
       --cyan: #0e7490;
       --cyan-dim: #0e749014;
+      --green: #059669;
       --text: #221f38;
       --text-dim: #5b5773;
       --border: #ddd8ec;
@@ -32,9 +34,7 @@
       overflow-x: hidden;
     }
 
-    #stars-canvas {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-    }
+    #stars-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 
     body::before {
       content: '';
@@ -68,6 +68,13 @@
       min-height: 100vh; display: flex; flex-direction: column;
       justify-content: center; padding: 8rem 6rem 4rem; position: relative;
     }
+    .hero-kicker {
+      display: inline-flex; align-items: center; gap: 0.5rem; align-self: flex-start;
+      padding: 0.35rem 0.9rem; border-radius: 999px; margin-bottom: 1.4rem;
+      border: 1px solid #7c3aed33; background: #7c3aed0a;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--purple-light); animation: fade-up 0.8s ease 0.05s both;
+    }
     .hero-name {
       font-family: 'Syne', sans-serif; font-weight: 800;
       font-size: clamp(3rem, 8vw, 7rem); line-height: 0.95;
@@ -79,7 +86,7 @@
     }
     .hero-sub {
       margin-top: 1.5rem; font-size: 1.15rem; font-weight: 300;
-      color: var(--text-dim); max-width: 480px; animation: fade-up 0.8s ease 0.3s both;
+      color: var(--text-dim); max-width: 520px; animation: fade-up 0.8s ease 0.3s both;
     }
     .hero-sub span { color: var(--purple-light); font-weight: 500; }
     .hero-cta { margin-top: 3rem; display: flex; gap: 1.2rem; flex-wrap: wrap; animation: fade-up 0.8s ease 0.45s both; }
@@ -118,7 +125,7 @@
       color: var(--purple-light); margin-bottom: 0.8rem;
       display: flex; align-items: center; gap: 0.6rem;
     }
-    .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--purple-light)30, transparent); max-width: 80px; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, #7c3aed4d, transparent); max-width: 80px; }
     .section-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 3rem; }
 
     /* ABOUT */
@@ -126,17 +133,18 @@
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
     .about-text p { color: var(--text-dim); font-size: 1.05rem; margin-bottom: 1rem; }
     .about-text p strong { color: var(--text); font-weight: 500; }
-    .stats-row { display: flex; gap: 2.5rem; margin-top: 2rem; }
+    .stats-row { display: flex; gap: 2.5rem; margin-top: 2rem; flex-wrap: wrap; }
     .stat-num {
       font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800;
       background: linear-gradient(135deg, var(--purple-light), var(--cyan));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1;
     }
     .stat-label { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.2rem; letter-spacing: 0.05em; }
-    .skills-cloud { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+    .skills-cloud { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-bottom: 1.8rem; }
     .skills-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; }
     .skill-tag { padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.8rem; border: 1px solid var(--border); color: var(--text-dim); background: var(--surface2); transition: all 0.2s; cursor: default; }
     .skill-tag:hover { border-color: var(--purple-light); color: var(--purple-light); background: var(--purple-glow); }
+    .skill-tag.hot { border-color: #0e749040; color: var(--cyan); background: var(--cyan-dim); }
 
     /* EXPERIENCE */
     #experience { background: var(--bg); }
@@ -146,22 +154,26 @@
     .exp-dot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--purple); background: var(--bg); box-shadow: 0 0 12px var(--purple-glow); flex-shrink: 0; position: relative; z-index: 1; margin-top: 4px; }
     .exp-dot::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--purple-light); }
     .exp-content { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem 2rem; transition: border-color 0.3s, box-shadow 0.3s; }
-    .exp-content:hover { border-color: var(--purple)60; box-shadow: 0 0 30px var(--purple-glow); }
+    .exp-content:hover { border-color: #6d28d960; box-shadow: 0 0 30px var(--purple-glow); }
     .exp-role { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--text); margin-bottom: 0.3rem; }
     .exp-company { font-size: 0.85rem; color: var(--purple-light); font-weight: 500; letter-spacing: 0.05em; }
+    .exp-points { list-style: none; margin-top: 0.9rem; display: grid; gap: 0.45rem; }
+    .exp-points li { position: relative; padding-left: 1.1rem; font-size: 0.9rem; color: var(--text-dim); line-height: 1.6; }
+    .exp-points li::before { content: ''; position: absolute; left: 0; top: 0.6em; width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, var(--purple-light), var(--cyan)); }
+    .exp-points strong { color: var(--text); font-weight: 500; }
 
     /* PUBLICATIONS */
     #publications { background: linear-gradient(180deg, var(--bg) 0%, #f4f2fb 100%); }
     .pub-grid { display: grid; gap: 1.2rem; }
     .pub-card { border: 1px solid var(--border); border-radius: 12px; padding: 1.8rem 2rem; background: var(--surface2); display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; transition: all 0.3s; position: relative; overflow: hidden; }
     .pub-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--purple), var(--cyan)); opacity: 0; transition: opacity 0.3s; }
-    .pub-card:hover { border-color: var(--purple)50; box-shadow: 0 0 30px var(--purple-glow); transform: translateX(4px); }
+    .pub-card:hover { border-color: #6d28d950; box-shadow: 0 0 30px var(--purple-glow); transform: translateX(4px); }
     .pub-card:hover::before { opacity: 1; }
     .pub-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1rem; color: var(--text); line-height: 1.4; }
     .pub-link { flex-shrink: 0; padding: 0.5rem 1.2rem; border-radius: 6px; border: 1px solid var(--border); color: var(--cyan); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
     .pub-link:hover { background: var(--cyan-dim); border-color: var(--cyan); }
 
-    /* GOPILOT — FLAGSHIP */
+    /* GOPILOT FLAGSHIP */
     #gopilot { background: radial-gradient(ellipse at 50% 0%, #e3f3fa88 0%, var(--bg) 60%); overflow: hidden; }
     .gp-shell {
       position: relative; border-radius: 20px; padding: 2px;
@@ -198,7 +210,7 @@
       font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--cyan); margin-bottom: 1.4rem;
     }
-    .gp-badge .gp-pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 0 #0e749060; animation: gp-pulse 2s ease-out infinite; }
+    .gp-pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 0 #0e749060; animation: gp-pulse 2s ease-out infinite; display: inline-block; }
     @keyframes gp-pulse { 70% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
 
     .gp-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 4.5vw, 3.2rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 0.6rem; }
@@ -226,6 +238,7 @@
     .btn-gopilot:hover { box-shadow: 0 0 45px #0e749050; transform: translateY(-2px); }
     .gp-made-in { font-size: 0.78rem; color: var(--text-dim); letter-spacing: 0.04em; }
 
+    /* Terminal + live agent trace */
     .gp-terminal {
       position: relative; margin: 0; width: 100%; border: 1px solid var(--border); border-radius: 12px;
       background: #ffffffd8; font-family: 'SFMono-Regular', 'Consolas', monospace;
@@ -236,27 +249,125 @@
     .gp-term-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border); }
     .gp-term-dot:nth-child(1) { background: #f8717150; } .gp-term-dot:nth-child(2) { background: #fbbf2450; } .gp-term-dot:nth-child(3) { background: #34d39950; }
     .gp-term-title { margin-left: 0.5rem; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.08em; }
+    .gp-term-live { margin-left: auto; display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.65rem; letter-spacing: 0.15em; color: var(--cyan); }
     .gp-term-body { padding: 1.1rem 1.3rem; color: var(--text-dim); line-height: 1.9; }
     .gp-term-cmd { padding: 0.8rem 1.3rem; border-bottom: 1px solid var(--border); }
-    .gp-term-live { margin-left: auto; display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.65rem; letter-spacing: 0.15em; color: var(--cyan); }
-    .gp-video { display: block; width: 100%; height: auto; background: #eceaf4; }
     .gp-term-body .p { color: var(--cyan); }
     .gp-term-body .c { color: var(--purple-light); }
     .gp-cursor { display: inline-block; width: 8px; height: 15px; background: var(--cyan); vertical-align: middle; animation: gp-blink 1s step-end infinite; margin-left: 2px; }
     @keyframes gp-blink { 50% { opacity: 0; } }
 
+    .gp-trace { padding: 0.75rem 1.3rem; border-bottom: 1px solid var(--border); font-size: 0.78rem; display: grid; gap: 0.15rem; }
+    .gp-trace-head { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); opacity: 0.8; margin-bottom: 0.2rem; }
+    .gp-trace-row { display: flex; align-items: center; gap: 0.65rem; color: var(--text-dim); opacity: 0.25; transition: opacity 0.4s ease, color 0.4s ease; line-height: 1.8; }
+    .gp-trace-row.on { opacity: 1; color: var(--text); }
+    .gp-trace-state { position: relative; width: 13px; height: 13px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; }
+    .gp-trace-row.on .gp-trace-state { border-color: var(--border); border-top-color: var(--cyan); animation: gp-rot 0.8s linear infinite; }
+    .gp-trace-row.done .gp-trace-state { animation: none; border-color: var(--green); background: var(--green); }
+    .gp-trace-row.done .gp-trace-state::after { content: ''; position: absolute; left: 3px; top: 0.5px; width: 3px; height: 6px; border: solid #fff; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); }
+    .gp-trace-row.final.on { color: var(--purple-light); font-weight: 600; }
+    @keyframes gp-rot { to { transform: rotate(360deg); } }
+
+    .gp-video { display: block; width: 100%; height: auto; background: #eceaf4; }
+
+    /* How it works */
+    .gp-block { position: relative; margin-top: 3.5rem; padding-top: 3rem; border-top: 1px solid var(--border); }
+    .gp-block-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); font-weight: 600; margin-bottom: 0.4rem; }
+    .gp-block-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.4rem, 2.6vw, 1.9rem); letter-spacing: -0.01em; line-height: 1.15; margin-bottom: 0.6rem; }
+    .gp-block-desc { color: var(--text-dim); font-size: 0.95rem; max-width: 620px; margin-bottom: 2.2rem; }
+
+    .gp-flow { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
+    .gp-flow-line { position: absolute; top: 28px; left: 12.5%; right: 12.5%; height: 2px; background: linear-gradient(90deg, #7c3aed55, #0e749055); border-radius: 2px; }
+    .gp-flow-dot { position: absolute; top: -4px; left: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); animation: gp-travel 4.5s ease-in-out infinite; }
+    @keyframes gp-travel { 0% { left: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: calc(100% - 10px); opacity: 0; } }
+    .gp-step { position: relative; text-align: center; padding: 0 0.4rem; }
+    .gp-step-icon {
+      position: relative; z-index: 1; width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 1rem;
+      display: grid; place-items: center; background: #fff; border: 1px solid var(--border);
+      color: var(--purple-light); box-shadow: 0 0 22px var(--purple-glow);
+    }
+    .gp-step:nth-child(odd) .gp-step-icon { color: var(--cyan); box-shadow: 0 0 22px #0e749022; }
+    .gp-step-num { font-size: 0.68rem; letter-spacing: 0.18em; color: var(--cyan); text-transform: uppercase; font-weight: 600; }
+    .gp-step-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--text); margin: 0.15rem 0 0.4rem; }
+    .gp-step-desc { font-size: 0.84rem; color: var(--text-dim); line-height: 1.6; }
+
+    /* Highlights */
+    .gp-highlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    @media (max-width: 1100px) { .gp-highlights { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 620px) { .gp-highlights { grid-template-columns: 1fr; } }
+    .gp-hl { background: #ffffffb8; border: 1px solid var(--border); border-radius: 12px; padding: 1.3rem 1.4rem; transition: all 0.3s; }
+    .gp-hl:hover { border-color: #0e749060; box-shadow: 0 12px 30px #2a204512, 0 0 24px #0e749014; transform: translateY(-3px); }
+    .gp-hl-icon { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--cyan-dim); color: var(--cyan); margin-bottom: 0.85rem; }
+    .gp-hl:nth-child(even) .gp-hl-icon { background: #7c3aed12; color: var(--purple-light); }
+    .gp-hl-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.98rem; color: var(--text); margin-bottom: 0.35rem; }
+    .gp-hl-desc { font-size: 0.84rem; color: var(--text-dim); line-height: 1.6; }
+
+    /* Suite architecture */
+    .gp-stack { display: grid; gap: 0.5rem; }
+    .gp-layer { display: grid; grid-template-columns: 130px 1fr; gap: 1rem; align-items: center; }
+    .gp-layer-label { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-dim); font-weight: 600; }
+    .gp-layer-items { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.8rem; }
+    .gp-node { position: relative; background: #ffffffc8; border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.1rem; transition: all 0.3s; }
+    .gp-node:hover { border-color: #0e749060; box-shadow: 0 10px 26px #2a204512, 0 0 22px #0e749014; transform: translateY(-2px); }
+    .gp-node.core { border-color: #0e749055; background: linear-gradient(135deg, #0e74900d, #7c3aed0b); }
+    .gp-node-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.35rem; }
+    .gp-node-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .gp-node-tag { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.15rem 0.55rem; border-radius: 999px; color: var(--cyan); background: var(--cyan-dim); border: 1px solid #0e749030; white-space: nowrap; }
+    .gp-node-tag.purple { color: var(--purple-light); background: #7c3aed10; border-color: #7c3aed30; }
+    .gp-node-desc { font-size: 0.82rem; color: var(--text-dim); line-height: 1.55; }
+    .gp-node-soon { display: inline-block; margin-top: 0.5rem; font-size: 0.64rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple-light); }
+    .gp-layer-arrow { display: grid; grid-template-columns: 130px 1fr; gap: 1rem; }
+    .gp-layer-arrow span { display: block; justify-self: center; width: 2px; height: 18px; background: linear-gradient(180deg, #7c3aed55, #0e749055); border-radius: 2px; }
+
+    /* Efficiency */
+    .gp-eff-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    .gp-eff-stat { border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem 1.3rem; background: #ffffffc8; }
+    .gp-eff-num { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; line-height: 1; background: linear-gradient(135deg, var(--green), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .gp-eff-label { font-size: 0.82rem; color: var(--text-dim); margin-top: 0.4rem; line-height: 1.5; }
+    .gp-eff-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 2rem; align-items: start; }
+    .gp-levels { display: grid; gap: 0.8rem; }
+    .gp-level { display: grid; grid-template-columns: 42px 1fr; gap: 0.9rem; align-items: start; border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.1rem; background: #ffffffc8; }
+    .gp-level-num { width: 42px; height: 42px; border-radius: 10px; display: grid; place-items: center; font-family: 'Syne', sans-serif; font-weight: 800; color: var(--cyan); background: var(--cyan-dim); }
+    .gp-level:nth-child(2) .gp-level-num { color: var(--purple-light); background: #7c3aed12; }
+    .gp-level-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.98rem; color: var(--text); display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .gp-level-desc { font-size: 0.83rem; color: var(--text-dim); line-height: 1.55; margin-top: 0.2rem; }
+    .gp-level-state { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.1rem 0.5rem; border-radius: 999px; color: var(--green); background: #05966912; border: 1px solid #05966930; }
+    .gp-level-state.test { color: var(--purple-light); background: #7c3aed10; border-color: #7c3aed30; }
+
+    .gp-bars { border: 1px solid var(--border); border-radius: 12px; padding: 1.3rem 1.4rem; background: #ffffffc8; }
+    .gp-bars-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.98rem; color: var(--text); }
+    .gp-bars-sub { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 1rem; }
+    .gp-bar { display: grid; grid-template-columns: 1fr 52px; gap: 0.3rem 0.8rem; align-items: center; margin-bottom: 0.75rem; }
+    .gp-bar-label { grid-column: 1 / -1; font-size: 0.8rem; color: var(--text); }
+    .gp-bar-track { height: 9px; border-radius: 999px; background: #ddd8ec80; overflow: hidden; }
+    .gp-bar-fill { height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, var(--cyan), var(--green)); transition: width 1.2s cubic-bezier(.2,.8,.2,1); }
+    .gp-bars.visible .gp-bar-fill { width: var(--w); }
+    .gp-bar-val { font-size: 0.8rem; font-weight: 600; color: var(--green); text-align: right; font-variant-numeric: tabular-nums; }
+    .gp-bars-note { font-size: 0.72rem; color: var(--text-dim); margin-top: 0.4rem; }
+
+    @media (max-width: 900px) {
+      .gp-eff-grid { grid-template-columns: 1fr; }
+      .gp-eff-stats { grid-template-columns: 1fr; }
+    }
+
     /* PROJECTS */
     #projects { background: var(--bg); }
+    .proj-pill.beta { color: var(--cyan); background: var(--cyan-dim); border: 1px solid #0e749030; }
+    .proj-tag { display: inline-block; margin-bottom: 0.6rem; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.15rem 0.55rem; border-radius: 999px; color: var(--cyan); background: var(--cyan-dim); border: 1px solid #0e749030; }
     .projects-cat-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; margin: 2.5rem 0 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
     .projects-cat-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; }
     .proj-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: all 0.3s; cursor: default; position: relative; overflow: hidden; }
-    .proj-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 80% 20%, var(--purple)08, transparent 60%); opacity: 0; transition: opacity 0.3s; }
-    .proj-card:hover { border-color: var(--purple)50; transform: translateY(-4px); box-shadow: 0 20px 40px #2a204518, 0 0 30px var(--purple-glow); }
+    .proj-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 80% 20%, #6d28d908, transparent 60%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .proj-card:hover { border-color: #6d28d950; transform: translateY(-4px); box-shadow: 0 20px 40px #2a204518, 0 0 30px var(--purple-glow); }
     .proj-card:hover::after { opacity: 1; }
+    .proj-card.featured { border-color: #0e749040; background: linear-gradient(135deg, #0e74900a, #7c3aed08); }
     .proj-icon { font-size: 1.6rem; margin-bottom: 0.8rem; display: block; }
     .proj-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--text); margin-bottom: 0.5rem; }
     .proj-desc { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; }
+    .proj-pill { display: inline-block; margin-top: 0.9rem; padding: 0.2rem 0.65rem; border-radius: 999px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+    .proj-pill.live { color: var(--green); background: #05966912; border: 1px solid #05966930; }
+    .proj-pill.soon { color: var(--purple-light); background: #7c3aed10; border: 1px solid #7c3aed30; }
 
     /* CONTACT */
     #contact { background: linear-gradient(135deg, #fdfcff00 0%, #f4f2fb 100%); text-align: center; }
@@ -273,19 +384,47 @@
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    @media (max-width: 1100px) {
+      .gp-flow { grid-template-columns: repeat(2, 1fr); row-gap: 2.2rem; }
+      .gp-flow-line { display: none; }
+    }
+
     @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; justify-content: center; }
-      .nav-links { gap: 1.2rem; }
-      #hero { padding: 7rem 2rem 4rem; flex-direction: column-reverse; align-items: flex-start; }
+      nav { padding: 1rem 1rem; justify-content: center; }
+      .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+      .nav-links a { font-size: 0.72rem; }
+      #hero { padding: 7rem 1.25rem 4rem; }
       .hero-photo { position: static; transform: none; margin-bottom: 2rem; order: -1; }
       .hero-photo-ring { width: 180px; height: 180px; }
-      section { padding: 4rem 2rem; }
+      section { padding: 4rem 1.25rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .scroll-hint { left: 2rem; }
+      .scroll-hint { display: none; }
       .stats-row { gap: 1.5rem; }
-      .gp-inner { padding: 2rem 1.5rem; }
+      .exp-item { gap: 1rem; padding-left: 0; }
+      .exp-content { padding: 1.2rem 1.3rem; }
+      .pub-card { flex-direction: column; gap: 1rem; padding: 1.4rem; }
+      .gp-inner { padding: 2rem 1.25rem; }
       .gp-layout { grid-template-columns: 1fr; gap: 2rem; }
       .gp-stats { gap: 1.4rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .gp-layer, .gp-layer-arrow { grid-template-columns: 1fr; gap: 0.5rem; }
+      .gp-layer-arrow { display: none; }
+      .gp-layer { margin-bottom: 0.9rem; }
+    }
+
+    @media (max-width: 520px) {
+      .gp-flow { grid-template-columns: 1fr; }
+      .gp-step { display: grid; grid-template-columns: 56px 1fr; gap: 1rem; text-align: left; align-items: start; }
+      .gp-step-icon { margin: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+      .gp-flow-dot { display: none; }
     }
   </style>
 </head>
@@ -298,7 +437,7 @@
 
 <div class="wrapper">
 
-  <!-- NAV — no logo, just links -->
+  <!-- NAV -->
   <nav>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
@@ -318,17 +457,19 @@
       </div>
     </div>
 
+    <span class="hero-kicker"><span class="gp-pulse"></span> Agentic AI · MCP · RAG for Earth observation</span>
     <h1 class="hero-name">
       <span class="gradient-text">Hasan</span><br>Nasrallah
     </h1>
     <p class="hero-sub">
-      AI Engineer crafting <span>geospatial intelligence</span> from satellite data —
-      7+ years turning raw earth observation into real-world insight.
+      Lead AI Engineer building <span>AI agents that analyze our planet</span>.
+      7+ years turning raw satellite data into real-world insight, now putting that expertise
+      behind a single conversation.
     </p>
     <div class="hero-cta">
-      <a href="#projects" class="btn btn-primary">
+      <a href="#gopilot" class="btn btn-primary">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
-        View Projects
+        Meet GoPilot
       </a>
       <a href="#contact" class="btn btn-ghost">Get in Touch</a>
     </div>
@@ -341,12 +482,12 @@
 
   <!-- ABOUT -->
   <section id="about">
-    <p class="section-label">01 — About</p>
+    <p class="section-label">01 · About</p>
     <h2 class="section-title">Who I Am</h2>
     <div class="about-grid">
       <div class="about-text reveal">
-        <p>I'm an <strong>AI Engineer</strong> specialising in satellite imagery, earth observation, and geospatial intelligence. I build end-to-end ML systems — from raw data ingestion to large-scale model deployment.</p>
-        <p>My work spans <strong>urban analytics, precision agriculture, environmental monitoring, biometrics,</strong> and more. I thrive at the intersection of cutting-edge deep learning and real-world geospatial problems.</p>
+        <p>I'm an <strong>AI Engineer</strong> specialising in satellite imagery, earth observation, and geospatial intelligence. I build end-to-end AI systems, from raw data ingestion and model training to <strong>autonomous agents</strong> that put those models to work.</p>
+        <p>Today I lead the team behind <strong>Rasid GoPilot</strong>, an AI agent that plans and runs complete geospatial analyses on its own. My wider work spans <strong>urban analytics, precision agriculture, environmental monitoring and biometrics</strong>.</p>
         <div class="stats-row">
           <div class="stat-item">
             <div class="stat-num">7+</div>
@@ -363,26 +504,41 @@
         </div>
       </div>
       <div class="reveal" style="transition-delay:0.15s">
+        <p class="skills-title">Agentic AI</p>
+        <div class="skills-cloud">
+          <span class="skill-tag hot">AI Agents</span>
+          <span class="skill-tag hot">MCP (Model Context Protocol)</span>
+          <span class="skill-tag hot">RAG</span>
+          <span class="skill-tag hot">Knowledge Bases</span>
+          <span class="skill-tag hot">LLM Tool Calling</span>
+          <span class="skill-tag hot">Agent Orchestration</span>
+          <span class="skill-tag hot">Document AI</span>
+          <span class="skill-tag hot">Python SDKs</span>
+          <span class="skill-tag hot">Dynamic Tool Search</span>
+          <span class="skill-tag hot">Context Engineering</span>
+          <span class="skill-tag hot">Prompt Caching</span>
+          <span class="skill-tag hot">LLM Cost Optimization</span>
+          <span class="skill-tag hot">Serverless GPU Inference</span>
+          <span class="skill-tag hot">AI Product Design</span>
+        </div>
         <p class="skills-title">Core Skills</p>
         <div class="skills-cloud">
           <span class="skill-tag">Satellite Imagery</span>
           <span class="skill-tag">Deep Learning</span>
           <span class="skill-tag">Segmentation</span>
           <span class="skill-tag">Object Detection</span>
-          <span class="skill-tag">SAM</span>
-          <span class="skill-tag">DINO</span>
+          <span class="skill-tag">Foundation Models</span>
+          <span class="skill-tag">Earth Embeddings</span>
           <span class="skill-tag">PyTorch</span>
           <span class="skill-tag">Earth Observation</span>
           <span class="skill-tag">Sentinel-1/2</span>
           <span class="skill-tag">Landsat</span>
           <span class="skill-tag">PEFT / LoRA</span>
           <span class="skill-tag">Anomaly Detection</span>
-          <span class="skill-tag">GAN</span>
           <span class="skill-tag">GDAL / GIS</span>
           <span class="skill-tag">MLOps</span>
           <span class="skill-tag">Computer Vision</span>
           <span class="skill-tag">Python</span>
-          <span class="skill-tag">VLMs</span>
         </div>
       </div>
     </div>
@@ -390,7 +546,7 @@
 
   <!-- EXPERIENCE -->
   <section id="experience">
-    <p class="section-label">02 — Experience</p>
+    <p class="section-label">02 · Experience</p>
     <h2 class="section-title">Where I've Worked</h2>
     <div class="exp-timeline">
       <div class="exp-item reveal">
@@ -398,6 +554,13 @@
         <div class="exp-content">
           <div class="exp-role">Lead AI Engineer</div>
           <div class="exp-company">RASID</div>
+          <ul class="exp-points">
+            <li>Lead the design and delivery of <strong>GoPilot</strong>, Rasid's agentic AI platform for satellite imagery analysis.</li>
+            <li>Architected the <strong>GoPilot suite</strong>: the agent, <strong>GoServer</strong> MCP tool servers, a GPU AI engine and the <strong>GoClient</strong> SDK.</li>
+            <li>Extending it with <strong>GoBase</strong>, a geospatial knowledge base, and <strong>GoDoc</strong>, a document RAG pipeline for reports and maps.</li>
+            <li>Cut the agent's cost per request by up to 99% (about 89% on typical tasks) with dynamic tool search, prompt caching and context engineering.</li>
+            <li>Took the platform from prototype to a live product used through web, notebooks and GIS desktop tools.</li>
+          </ul>
         </div>
       </div>
       <div class="exp-item reveal" style="transition-delay:0.1s">
@@ -417,9 +580,9 @@
     </div>
   </section>
 
-  <!-- GOPILOT — FLAGSHIP -->
+  <!-- GOPILOT FLAGSHIP -->
   <section id="gopilot">
-    <p class="section-label">03 — Flagship</p>
+    <p class="section-label">03 · Flagship</p>
     <h2 class="section-title">Rasid <span style="background:linear-gradient(135deg,var(--cyan),var(--purple-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">GoPilot</span></h2>
 
     <div class="gp-shell reveal">
@@ -432,32 +595,34 @@
             <h3 class="gp-title"><span class="gradient-text">Seeing Earth,<br>Smarter.</span></h3>
             <p class="gp-tagline">🛰️ Geospatial Observation Pilot</p>
             <p class="gp-desc">
-              An expert <strong>AI co-pilot for satellite imagery analysis</strong>, Earth observation, and geospatial
-              intelligence — built at RASID. It doesn't just chat: it runs <strong>end-to-end workflows</strong> on real
-              satellite data. Give it a location, a time range, and an objective — it handles scene selection,
-              analysis, and file delivery.
+              An <strong>AI agent for satellite imagery analysis</strong>, built at RASID. It doesn't just chat:
+              it <strong>plans and runs complete workflows</strong> on real satellite data, using 100+ tools served over
+              <strong>MCP</strong>. Describe a place, a time range and a goal in plain language, and GoPilot finds the right
+              imagery, runs the analysis, applies the right AI models and delivers map-ready results.
             </p>
 
             <div class="gp-stats">
-              <div><div class="gp-stat-num">6</div><div class="gp-stat-label">Satellite Sources</div></div>
-              <div><div class="gp-stat-num">17+</div><div class="gp-stat-label">Spectral Indices</div></div>
-              <div><div class="gp-stat-num">7</div><div class="gp-stat-label">GPU AI Models</div></div>
+              <div><div class="gp-stat-num">100+</div><div class="gp-stat-label">Analysis Tools</div></div>
+              <div><div class="gp-stat-num">13</div><div class="gp-stat-label">GPU AI Models</div></div>
+              <div><div class="gp-stat-num">10+</div><div class="gp-stat-label">Data Sources</div></div>
               <div><div class="gp-stat-num">40+</div><div class="gp-stat-label">Years of Archive</div></div>
             </div>
 
             <div class="gp-chips">
               <span class="gp-chip">Sentinel-2</span>
-              <span class="gp-chip">Landsat 4–9</span>
-              <span class="gp-chip">Sub-meter Mapbox</span>
-              <span class="gp-chip">Alpha Earth Embeddings</span>
+              <span class="gp-chip">Landsat 4-9</span>
+              <span class="gp-chip">Sub-meter Imagery</span>
+              <span class="gp-chip">Climate &amp; Elevation</span>
+              <span class="gp-chip">Building Footprints</span>
+              <span class="gp-chip">Earth Embeddings</span>
               <span class="gp-chip">NDVI · NDWI · NBR</span>
               <span class="gp-chip">Change Detection</span>
               <span class="gp-chip">Methane Plume Detection</span>
               <span class="gp-chip">Field Delineation</span>
-              <span class="gp-chip">Tree Crown Detection</span>
+              <span class="gp-chip">Tree &amp; Palm Detection</span>
+              <span class="gp-chip">Solar Panel Mapping</span>
+              <span class="gp-chip">Text-Prompted Segmentation</span>
               <span class="gp-chip">Phenology Analysis</span>
-              <span class="gp-chip">Land Cover</span>
-              <span class="gp-chip">World Monitor Intel</span>
             </div>
 
             <div class="gp-cta-row">
@@ -472,11 +637,20 @@
           <div class="gp-terminal reveal" style="transition-delay:0.15s">
             <div class="gp-term-bar">
               <span class="gp-term-dot"></span><span class="gp-term-dot"></span><span class="gp-term-dot"></span>
-              <span class="gp-term-title">gopilot — live layer analysis</span>
+              <span class="gp-term-title">gopilot · live layer analysis</span>
               <span class="gp-term-live"><span class="gp-pulse"></span> REC</span>
             </div>
             <div class="gp-term-body gp-term-cmd">
-              <span class="p">user ▸</span> for this AoI I want — <span class="c">Sentinel-2 RGB uint8 TIFF</span> · <span class="c">Microsoft Buildings</span> · <span class="c">Alpha Earth 3 random band-embeddings</span> · <span class="c">high-res Mapbox image</span><span class="gp-cursor"></span>
+              <span class="p">user ▸</span> for this AoI I want <span class="c">Sentinel-2 RGB image</span> · <span class="c">building footprints</span> · <span class="c">Earth embeddings</span> · <span class="c">high-res basemap</span><span class="gp-cursor"></span>
+            </div>
+            <div class="gp-trace" id="gp-trace" aria-label="GoPilot working through the request">
+              <div class="gp-trace-head">GoPilot is working</div>
+              <div class="gp-trace-row"><span class="gp-trace-state"></span>Locating the area of interest</div>
+              <div class="gp-trace-row"><span class="gp-trace-state"></span>Finding the clearest Sentinel-2 scene</div>
+              <div class="gp-trace-row"><span class="gp-trace-state"></span>Extracting building footprints</div>
+              <div class="gp-trace-row"><span class="gp-trace-state"></span>Generating Earth embeddings</div>
+              <div class="gp-trace-row"><span class="gp-trace-state"></span>Fetching high-resolution basemap</div>
+              <div class="gp-trace-row final"><span class="gp-trace-state"></span>4 layers ready on the map</div>
             </div>
             <video class="gp-video" muted loop playsinline preload="metadata" poster="gopilot-poster.jpg" aria-label="GoPilot analysis layers rendered over satellite imagery">
               <source src="gopilot-demo.mp4" type="video/mp4">
@@ -484,40 +658,311 @@
           </div>
 
         </div>
+
+        <!-- HOW IT WORKS -->
+        <div class="gp-block reveal">
+          <p class="gp-block-label">How it works</p>
+          <h4 class="gp-block-title">From one sentence to finished analysis</h4>
+          <p class="gp-block-desc">GoPilot works like an expert analyst. It breaks your request into steps, picks the right data and models for each one, and keeps going until the job is done.</p>
+
+          <div class="gp-flow">
+            <div class="gp-flow-line"><span class="gp-flow-dot"></span></div>
+
+            <div class="gp-step">
+              <div class="gp-step-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div>
+                <div class="gp-step-num">Step 01</div>
+                <div class="gp-step-name">Ask</div>
+                <div class="gp-step-desc">Describe a place, a time window and what you want to know, in plain language.</div>
+              </div>
+            </div>
+
+            <div class="gp-step">
+              <div class="gp-step-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+              </div>
+              <div>
+                <div class="gp-step-num">Step 02</div>
+                <div class="gp-step-name">Plan</div>
+                <div class="gp-step-desc">The agent reasons about the request and lays out the workflow it needs to run.</div>
+              </div>
+            </div>
+
+            <div class="gp-step">
+              <div class="gp-step-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </div>
+              <div>
+                <div class="gp-step-num">Step 03</div>
+                <div class="gp-step-name">Act</div>
+                <div class="gp-step-desc">It calls MCP tools to fetch imagery, run analysis and launch AI models on cloud GPUs, adapting as results come in.</div>
+              </div>
+            </div>
+
+            <div class="gp-step">
+              <div class="gp-step-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+              </div>
+              <div>
+                <div class="gp-step-num">Step 04</div>
+                <div class="gp-step-name">Deliver</div>
+                <div class="gp-step-desc">You get a clear answer plus styled map layers and files, ready to view or download.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WHAT MAKES IT AGENTIC -->
+        <div class="gp-block reveal">
+          <p class="gp-block-label">What makes it agentic</p>
+          <h4 class="gp-block-title">Built to do the work, not just describe it</h4>
+          <p class="gp-block-desc">Behind the conversation is a full platform I designed and built: a large analysis toolkit, a fleet of AI models, and an agent that ties it all together.</p>
+
+          <div class="gp-highlights">
+            <div class="gp-hl">
+              <div class="gp-hl-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></div>
+              <div class="gp-hl-name">Plans its own workflow</div>
+              <div class="gp-hl-desc">Turns an open-ended question into a sequence of steps, then chooses the right tool for each one.</div>
+            </div>
+            <div class="gp-hl">
+              <div class="gp-hl-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></div>
+              <div class="gp-hl-name">AI models on demand</div>
+              <div class="gp-hl-desc">Detection, segmentation and embedding models spin up on cloud GPUs only when a task needs them.</div>
+            </div>
+            <div class="gp-hl">
+              <div class="gp-hl-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+              <div class="gp-hl-name">Real data, real analysis</div>
+              <div class="gp-hl-desc">Works directly on satellite, climate, elevation and building data from more than ten sources.</div>
+            </div>
+            <div class="gp-hl">
+              <div class="gp-hl-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+              <div class="gp-hl-name">Shows its work live</div>
+              <div class="gp-hl-desc">Users watch the agent think and act step by step, so long analyses never feel like a black box.</div>
+            </div>
+            <div class="gp-hl">
+              <div class="gp-hl-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+              <div class="gp-hl-name">Map-ready deliverables</div>
+              <div class="gp-hl-desc">Every output is styled and traceable, so results drop straight onto a map with their full history.</div>
+            </div>
+            <div class="gp-hl">
+              <div class="gp-hl-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+              <div class="gp-hl-name">Ready for teams</div>
+              <div class="gp-hl-desc">Secure access, tiered plans and multiple front ends: web app, notebooks and GIS desktop.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EFFICIENCY -->
+        <div class="gp-block reveal">
+          <p class="gp-block-label">Engineered for efficiency</p>
+          <h4 class="gp-block-title">Smarter tool use, a fraction of the cost</h4>
+          <p class="gp-block-desc">An agent with 100+ tools can drown in its own context. I rebuilt how GoPilot discovers and loads tools, so it carries only what each task needs. Every request got dramatically cheaper, and in some cases more accurate.</p>
+
+          <div class="gp-eff-stats">
+            <div class="gp-eff-stat"><div class="gp-eff-num">99%</div><div class="gp-eff-label">lower cost on a simple greeting, where overhead used to dominate</div></div>
+            <div class="gp-eff-stat"><div class="gp-eff-num">~89%</div><div class="gp-eff-label">typical saving on real geospatial analysis tasks</div></div>
+            <div class="gp-eff-stat"><div class="gp-eff-num">67%</div><div class="gp-eff-label">smaller system prompt after a full context engineering pass</div></div>
+          </div>
+
+          <div class="gp-eff-grid">
+            <div class="gp-levels">
+              <div class="gp-level">
+                <div class="gp-level-num">0</div>
+                <div>
+                  <div class="gp-level-name">Lean tool descriptions <span class="gp-level-state">Live</span></div>
+                  <div class="gp-level-desc">Every tool rewritten to one compact, consistent format, with each parameter documented in its schema.</div>
+                </div>
+              </div>
+              <div class="gp-level">
+                <div class="gp-level-num">1</div>
+                <div>
+                  <div class="gp-level-name">Tool Arsenal <span class="gp-level-state">Beta</span></div>
+                  <div class="gp-level-desc">Dynamic tool search: the agent lists, browses and loads only the tools a task needs, while connections warm up in the background and the prompt cache stays intact.</div>
+                </div>
+              </div>
+              <div class="gp-level">
+                <div class="gp-level-num">2</div>
+                <div>
+                  <div class="gp-level-name">Tool Composer <span class="gp-level-state test">In testing</span></div>
+                  <div class="gp-level-desc">Chains several tool steps into a single turn, passing results from one step to the next, so long workflows need fewer model calls.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="gp-bars" id="gp-bars">
+              <div class="gp-bars-title">Cost saved per request</div>
+              <div class="gp-bars-sub">Same prompt, original agent vs Tool Arsenal</div>
+              <div class="gp-bar"><span class="gp-bar-label">Simple greeting</span><div class="gp-bar-track"><div class="gp-bar-fill" style="--w:99%"></div></div><span class="gp-bar-val">99%</span></div>
+              <div class="gp-bar"><span class="gp-bar-label">Land cover around Lake Tahoe</span><div class="gp-bar-track"><div class="gp-bar-fill" style="--w:92%"></div></div><span class="gp-bar-val">92%</span></div>
+              <div class="gp-bar"><span class="gp-bar-label">Buildings within 2 km of the Eiffel Tower</span><div class="gp-bar-track"><div class="gp-bar-fill" style="--w:89%"></div></div><span class="gp-bar-val">89%</span></div>
+              <div class="gp-bar"><span class="gp-bar-label">Burn scar of the 2023 Maui wildfire</span><div class="gp-bar-track"><div class="gp-bar-fill" style="--w:89%"></div></div><span class="gp-bar-val">89%</span></div>
+              <div class="gp-bar"><span class="gp-bar-label">Scene parsing around Burj Khalifa</span><div class="gp-bar-track"><div class="gp-bar-fill" style="--w:89%"></div></div><span class="gp-bar-val">89%</span></div>
+              <div class="gp-bar"><span class="gp-bar-label">Circular fields in Al Jouf, Saudi Arabia</span><div class="gp-bar-track"><div class="gp-bar-fill" style="--w:85%"></div></div><span class="gp-bar-val">85%</span></div>
+              <div class="gp-bar"><span class="gp-bar-label">Long multi-layer request</span><div class="gp-bar-track"><div class="gp-bar-fill" style="--w:65%"></div></div><span class="gp-bar-val">65%</span></div>
+              <div class="gp-bars-note">Tool Composer results are still being measured.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- THE GOPILOT SUITE -->
+        <div class="gp-block reveal">
+          <p class="gp-block-label">The GoPilot suite</p>
+          <h4 class="gp-block-title">One agent, a full ecosystem behind it</h4>
+          <p class="gp-block-desc">GoPilot is a family of components I designed to work together: an agent at the center, MCP tool servers, a GPU model engine, a geospatial knowledge base, document RAG and a client SDK.</p>
+
+          <div class="gp-stack">
+            <div class="gp-layer">
+              <div class="gp-layer-label">Interfaces</div>
+              <div class="gp-layer-items">
+                <div class="gp-node">
+                  <div class="gp-node-head"><span class="gp-node-name">Web App</span><span class="gp-node-tag purple">Chat UI</span></div>
+                  <div class="gp-node-desc">Conversational map interface at app.rasid.ai.</div>
+                </div>
+                <div class="gp-node">
+                  <div class="gp-node-head"><span class="gp-node-name">GoClient</span><span class="gp-node-tag purple">Python SDK</span></div>
+                  <div class="gp-node-desc">Client library and notebooks to call GoPilot and stream its reasoning and results.</div>
+                </div>
+                <div class="gp-node">
+                  <div class="gp-node-head"><span class="gp-node-name">QGIS Plugin</span><span class="gp-node-tag purple">GIS Desktop</span></div>
+                  <div class="gp-node-desc">GoPilot inside the desktop GIS that analysts already use.</div>
+                </div>
+              </div>
+            </div>
+            <div class="gp-layer-arrow"><div></div><span></span></div>
+
+            <div class="gp-layer">
+              <div class="gp-layer-label">Agent</div>
+              <div class="gp-layer-items">
+                <div class="gp-node core">
+                  <div class="gp-node-head"><span class="gp-node-name">GoPilot</span><span class="gp-node-tag">Agentic AI</span></div>
+                  <div class="gp-node-desc">LLM agent that plans multi-step geospatial workflows, calls tools, and streams its progress and map-ready results.</div>
+                </div>
+              </div>
+            </div>
+            <div class="gp-layer-arrow"><div></div><span></span></div>
+
+            <div class="gp-layer">
+              <div class="gp-layer-label">Tools &amp; Knowledge</div>
+              <div class="gp-layer-items">
+                <div class="gp-node">
+                  <div class="gp-node-head"><span class="gp-node-name">GoServer</span><span class="gp-node-tag">MCP Servers</span></div>
+                  <div class="gp-node-desc">100+ geospatial tools for data access, vector, raster and AI analysis, exposed to the agent through MCP.</div>
+                </div>
+                <div class="gp-node">
+                  <div class="gp-node-head"><span class="gp-node-name">GoBase</span><span class="gp-node-tag">Knowledge Base</span></div>
+                  <div class="gp-node-desc">Searchable catalog of geospatial layers, so the agent knows what data exists and where.</div>
+                  <span class="gp-node-soon">In development</span>
+                </div>
+                <div class="gp-node">
+                  <div class="gp-node-head"><span class="gp-node-name">GoDoc</span><span class="gp-node-tag">Document RAG</span></div>
+                  <div class="gp-node-desc">Turns PDF reports and printed maps into searchable, geo-located knowledge.</div>
+                  <span class="gp-node-soon">In development</span>
+                </div>
+              </div>
+            </div>
+            <div class="gp-layer-arrow"><div></div><span></span></div>
+
+            <div class="gp-layer">
+              <div class="gp-layer-label">Models</div>
+              <div class="gp-layer-items">
+                <div class="gp-node">
+                  <div class="gp-node-head"><span class="gp-node-name">AI Engine</span><span class="gp-node-tag">GPU Inference</span></div>
+                  <div class="gp-node-desc">13 segmentation, detection and embedding models, from foundation models to custom ones, run across full satellite scenes.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
   <!-- PUBLICATIONS -->
   <section id="publications">
-    <p class="section-label">04 — Research</p>
+    <p class="section-label">04 · Research</p>
     <h2 class="section-title">Publications</h2>
     <div class="pub-grid">
       <div class="pub-card reveal">
         <div class="pub-title">Zero-Shot Refinement of Buildings' Segmentation Models using SAM</div>
-        <a class="pub-link" href="https://arxiv.org/pdf/2310.01845.pdf" target="_blank">↗ arXiv</a>
+        <a class="pub-link" href="https://arxiv.org/pdf/2310.01845.pdf" target="_blank" rel="noopener">↗ arXiv</a>
       </div>
       <div class="pub-card reveal" style="transition-delay:0.1s">
         <div class="pub-title">Empirical Study of PEFT Techniques for Winter Wheat Segmentation</div>
-        <a class="pub-link" href="https://arxiv.org/pdf/2310.01825v1.pdf" target="_blank">↗ arXiv</a>
+        <a class="pub-link" href="https://arxiv.org/pdf/2310.01825v1.pdf" target="_blank" rel="noopener">↗ arXiv</a>
       </div>
       <div class="pub-card reveal" style="transition-delay:0.2s">
         <div class="pub-title">Scale Invariant Model for Building Detection from Aerial Images</div>
-        <a class="pub-link" href="https://link.springer.com/article/10.1007/s11760-023-02520-3" target="_blank">↗ Springer</a>
+        <a class="pub-link" href="https://link.springer.com/article/10.1007/s11760-023-02520-3" target="_blank" rel="noopener">↗ Springer</a>
       </div>
       <div class="pub-card reveal" style="transition-delay:0.3s">
         <div class="pub-title">Lebanon Solar Rooftop Potential Assessment using Buildings Segmentation from Aerial Images</div>
-        <a class="pub-link" href="https://ieeexplore.ieee.org/document/9793655" target="_blank">↗ IEEE</a>
+        <a class="pub-link" href="https://ieeexplore.ieee.org/document/9793655" target="_blank" rel="noopener">↗ IEEE</a>
       </div>
     </div>
   </section>
 
   <!-- PROJECTS -->
   <section id="projects">
-    <p class="section-label">05 — Work</p>
+    <p class="section-label">05 · Work</p>
     <h2 class="section-title">Selected Projects</h2>
 
-    <p class="projects-cat-title">🌍 Geospatial & Earth Observation</p>
+    <p class="projects-cat-title">🤖 The GoPilot Suite</p>
+    <div class="projects-grid">
+      <div class="proj-card featured reveal">
+        <span class="proj-icon">🛰️</span>
+        <span class="proj-tag">Agentic AI</span>
+        <div class="proj-name">GoPilot</div>
+        <div class="proj-desc">The AI agent at the heart of the suite. It understands geospatial requests, plans multi-step workflows and delivers results on a map.</div>
+        <span class="proj-pill live">Live</span>
+      </div>
+      <div class="proj-card featured reveal" style="transition-delay:0.05s">
+        <span class="proj-icon">🧰</span>
+        <span class="proj-tag">MCP Servers</span>
+        <div class="proj-name">GoServer</div>
+        <div class="proj-desc">100+ geospatial tools for data access, vector, raster and AI analysis, organized into domain MCP servers the agent can call.</div>
+        <span class="proj-pill live">Live</span>
+      </div>
+      <div class="proj-card featured reveal" style="transition-delay:0.1s">
+        <span class="proj-icon">⚙️</span>
+        <span class="proj-tag">GPU Inference</span>
+        <div class="proj-name">AI Engine</div>
+        <div class="proj-desc">Runs 13 segmentation, detection and embedding models over entire satellite scenes on cloud GPUs.</div>
+        <span class="proj-pill live">Live</span>
+      </div>
+      <div class="proj-card featured reveal" style="transition-delay:0.15s">
+        <span class="proj-icon">🐍</span>
+        <span class="proj-tag">Python SDK</span>
+        <div class="proj-name">GoClient</div>
+        <div class="proj-desc">Client library and notebook console for calling GoPilot, streaming its reasoning and rendering results.</div>
+        <span class="proj-pill live">Live</span>
+      </div>
+      <div class="proj-card featured reveal" style="transition-delay:0.2s">
+        <span class="proj-icon">🎯</span>
+        <span class="proj-tag">Tool Search</span>
+        <div class="proj-name">Tool Arsenal &amp; Composer</div>
+        <div class="proj-desc">Dynamic tool discovery and multi-step chaining that let the agent use 100+ tools while cutting cost per request by up to 99%.</div>
+        <span class="proj-pill beta">Beta</span>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:0.25s">
+        <span class="proj-icon">🗂️</span>
+        <span class="proj-tag">Knowledge Base</span>
+        <div class="proj-name">GoBase</div>
+        <div class="proj-desc">A geospatial knowledge base that catalogs vector and raster layers, so the agent always knows what data exists and where to find it.</div>
+        <span class="proj-pill soon">In development</span>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:0.25s">
+        <span class="proj-icon">📄</span>
+        <span class="proj-tag">Document RAG</span>
+        <div class="proj-name">GoDoc</div>
+        <div class="proj-desc">Parses PDF reports and printed maps, extracts their content and places what they describe onto the map for retrieval.</div>
+        <span class="proj-pill soon">In development</span>
+      </div>
+    </div>
+
+    <p class="projects-cat-title">🌍 Geospatial &amp; Earth Observation</p>
     <div class="projects-grid">
       <div class="proj-card reveal">
         <span class="proj-icon">🏙️</span>
@@ -526,12 +971,12 @@
       </div>
       <div class="proj-card reveal" style="transition-delay:0.05s">
         <span class="proj-icon">🔄</span>
-        <div class="proj-name">Urban & General Change Detection</div>
+        <div class="proj-name">Urban &amp; General Change Detection</div>
         <div class="proj-desc">Temporal models detecting urban expansion and land-use changes over time.</div>
       </div>
       <div class="proj-card reveal" style="transition-delay:0.1s">
         <span class="proj-icon">🌾</span>
-        <div class="proj-name">Crop Field Delineation & Wheat Monitoring</div>
+        <div class="proj-name">Crop Field Delineation &amp; Wheat Monitoring</div>
         <div class="proj-desc">Mapping agricultural fields and monitoring crop health via satellite multispectral imagery.</div>
       </div>
       <div class="proj-card reveal" style="transition-delay:0.15s">
@@ -542,7 +987,7 @@
       <div class="proj-card reveal" style="transition-delay:0.2s">
         <span class="proj-icon">💨</span>
         <div class="proj-name">Methane Emission Monitoring</div>
-        <div class="proj-desc">Large-scale model trained on real + synthetic satellite data for global methane detection and alerting.</div>
+        <div class="proj-desc">Large-scale model trained on real and synthetic satellite data for global methane detection and alerting.</div>
       </div>
       <div class="proj-card reveal" style="transition-delay:0.25s">
         <span class="proj-icon">☀️</span>
@@ -561,45 +1006,36 @@
       </div>
       <div class="proj-card reveal" style="transition-delay:0.4s">
         <span class="proj-icon">🌿</span>
-        <div class="proj-name">Vegetation & NDVI Analysis</div>
+        <div class="proj-name">Vegetation &amp; NDVI Analysis</div>
         <div class="proj-desc">Time-series vegetation health monitoring using multispectral indices across large regions.</div>
       </div>
       <div class="proj-card reveal" style="transition-delay:0.4s">
-      <span class="proj-icon">🖼️</span>
-      <div class="proj-name">Satellite Image Quality</div>
-      <div class="proj-desc">Automated Detection and Correction of Geometric Satellite Image Anomalies.</div>
+        <span class="proj-icon">🖼️</span>
+        <div class="proj-name">Satellite Image Quality</div>
+        <div class="proj-desc">Automated detection and correction of geometric satellite image anomalies.</div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:0.45s">
+        <span class="proj-icon">📡</span>
+        <div class="proj-name">EO Data Fetcher</div>
+        <div class="proj-desc">Automated pipeline fetching imagery from Sentinel-1/2, Landsat and high-resolution basemaps at scale.</div>
       </div>
     </div>
 
-    <p class="projects-cat-title">🛠 AI Platforms & Pipelines</p>
-    <div class="projects-grid">
-      <div class="proj-card reveal">
-        <span class="proj-icon">⚙️</span>
-        <div class="proj-name">Geo-AI Engine</div>
-        <div class="proj-desc">Modular geospatial AI platform for segmentation, detection, classification, embedding extraction, and VLMs (SAM, DINO).</div>
-      </div>
-      <div class="proj-card reveal" style="transition-delay:0.05s">
-        <span class="proj-icon">🛰️</span>
-        <div class="proj-name">EO Data Fetcher / Satellite Image Pipeline</div>
-        <div class="proj-desc">Automated pipeline fetching imagery from Sentinel-1/2, Landsat, and Mapbox at scale.</div>
-      </div>
-    </div>
-
-    <p class="projects-cat-title">👤 Biometrics & Security</p>
+    <p class="projects-cat-title">👤 Biometrics &amp; Security</p>
     <div class="projects-grid">
       <div class="proj-card reveal">
         <span class="proj-icon">🧠</span>
         <div class="proj-name">Face Analysis Suite</div>
-        <div class="proj-desc">CNN/GAN models for face detection, tracking, recognition, emotion analysis, and liveness detection.</div>
+        <div class="proj-desc">CNN/GAN models for face detection, tracking, recognition, emotion analysis and liveness detection.</div>
       </div>
       <div class="proj-card reveal" style="transition-delay:0.05s">
         <span class="proj-icon">🪪</span>
-        <div class="proj-name">ID & Passport OCR</div>
+        <div class="proj-name">ID &amp; Passport OCR</div>
         <div class="proj-desc">Automated verification system for identity documents deployed in airports and retail environments.</div>
       </div>
       <div class="proj-card reveal" style="transition-delay:0.1s">
         <span class="proj-icon">🔍</span>
-        <div class="proj-name">Face Quality & Forgery Detection</div>
+        <div class="proj-name">Face Quality &amp; Forgery Detection</div>
         <div class="proj-desc">Models assessing image quality and detecting document forgery in IDs and passports.</div>
       </div>
     </div>
@@ -607,19 +1043,19 @@
 
   <!-- CONTACT -->
   <section id="contact">
-    <p class="section-label" style="justify-content:center">06 — Contact</p>
+    <p class="section-label" style="justify-content:center">06 · Contact</p>
     <h2 class="contact-headline reveal">Let's build something<br><span class="gradient-text">extraordinary.</span></h2>
-    <p class="contact-sub reveal" style="transition-delay:0.1s">Open to collaborations, research, and new opportunities.</p>
+    <p class="contact-sub reveal" style="transition-delay:0.1s">Open to collaborations, research and new opportunities in agentic and geospatial AI.</p>
     <div class="contact-links reveal" style="transition-delay:0.2s">
       <a class="contact-link" href="mailto:98hasan.n@email.com">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
         98hasan.n@email.com
       </a>
-      <a class="contact-link" href="https://linkedin.com/in/hasannasrallah-ai" target="_blank">
+      <a class="contact-link" href="https://linkedin.com/in/hasannasrallah-ai" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
         LinkedIn
       </a>
-      <a class="contact-link" href="https://github.com/hasan-nn" target="_blank">
+      <a class="contact-link" href="https://github.com/hasan-nn" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
         GitHub
       </a>
@@ -627,7 +1063,7 @@
   </section>
 
   <footer>
-    <p>Crafted with precision · Hasan Nasrallah © 2025</p>
+    <p>Crafted with precision · Hasan Nasrallah © 2026</p>
   </footer>
 
 </div>
@@ -680,6 +1116,15 @@
   }, { threshold: 0.1 });
   reveals.forEach(el => io.observe(el));
 
+  // Savings bars: grow when scrolled into view
+  const bars = document.getElementById('gp-bars');
+  if (bars) {
+    const bio = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { bars.classList.add('visible'); bio.unobserve(bars); } });
+    }, { threshold: 0.3 });
+    bio.observe(bars);
+  }
+
   // GoPilot demo video: play only while visible
   const gpVideo = document.querySelector('.gp-video');
   if (gpVideo) {
@@ -690,6 +1135,38 @@
       });
     }, { threshold: 0.25 });
     vio.observe(gpVideo);
+  }
+
+  // Live agent trace: steps start, then complete, in sequence, while visible
+  const trace = document.getElementById('gp-trace');
+  if (trace) {
+    const rows = Array.from(trace.querySelectorAll('.gp-trace-row'));
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let timers = [];
+    let running = false;
+
+    const clearAll = () => { timers.forEach(clearTimeout); timers = []; };
+    const reset = () => rows.forEach(r => r.classList.remove('on', 'done'));
+
+    function play() {
+      clearAll(); reset();
+      if (reduced) { rows.forEach(r => r.classList.add('on', 'done')); return; }
+      let t = 300;
+      rows.forEach((row, i) => {
+        timers.push(setTimeout(() => row.classList.add('on'), t));
+        t += i === rows.length - 1 ? 300 : 1100;
+        timers.push(setTimeout(() => row.classList.add('done'), t));
+      });
+      timers.push(setTimeout(() => { if (running) play(); }, t + 4000));
+    }
+
+    const tio = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !running) { running = true; play(); }
+        else if (!e.isIntersecting && running) { running = false; clearAll(); }
+      });
+    }, { threshold: 0.3 });
+    tio.observe(trace);
   }
 </script>
 
